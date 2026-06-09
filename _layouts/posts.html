@@ -1,114 +1,1190 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" prefix="og: https://ogp.me/ns#">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} | Celebrity Top 1</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title>Amazon Lightning Deals - Up to 90% Off!</title>
     <style>
-        /* TEMPELKAN SEMUA CSS PREMIUM CINEMATIC ANDA DI SINI */
-        /* (Copy paste dari style tag di file sydney-zendaya.html tadi) */
-        /* ... CSS CODE ... */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        :root {
+            --amazon-orange: #ff9900;
+            --amazon-dark-blue: #232f3e;
+            --amazon-light-blue: #37475a;
+            --amazon-yellow: #ffd814;
+            --amazon-yellow-hover: #f7ca00;
+            --bg-gray: #eaeded;
+            --text-black: #0f1111;
+            --text-gray: #565959;
+            --price-red: #b12704;
+            --border-color: #ddd;
+            --white: #ffffff;
+            --link-blue: #007185;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', Arial, sans-serif; }
+
+        body {
+            background-color: var(--bg-gray);
+            color: var(--text-black);
+            padding-bottom: 20px;
+        }
+
+        /* --- HEADER AMAZON STYLE --- */
+        .amazon-header {
+            background: var(--amazon-dark-blue);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .amazon-logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .amazon-logo span {
+            color: var(--amazon-orange);
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 20px;
+            display: flex;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-btn {
+            background: var(--amazon-orange);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background 0.2s;
+        }
+
+        .search-btn:hover {
+            background: #e68a00;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            cursor: pointer;
+            line-height: 1.2;
+        }
+
+        .nav-item:hover {
+            text-decoration: underline;
+            outline: 1px solid white;
+            padding: 2px;
+        }
+
+        .nav-bold {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* --- LIGHTNING DEALS BANNER --- */
+        .deals-banner {
+            background: linear-gradient(135deg, #232f3e 0%, #37475a 100%);
+            color: white;
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 1200px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .deals-title {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .lightning-icon {
+            font-size: 2.5rem;
+            color: var(--amazon-orange);
+        }
+
+        .deals-text h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .deals-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .time-box {
+            background: white;
+            color: var(--text-black);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            min-width: 45px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .time-separator {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        /* --- MAIN CONTENT --- */
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 15px; 
+        }
+
+        .section-header {
+            background: white;
+            padding: 15px 20px;
+            margin-top: 20px;
+            border-bottom: 2px solid var(--amazon-orange);
+            font-weight: 700;
+            color: var(--text-black);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-radius: 4px 4px 0 0;
+            font-size: 1.3rem;
+        }
+
+        .section-header::before {
+            content: "⚡";
+            color: var(--amazon-orange);
+            font-size: 1.4rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+            background: white;
+            padding: 15px;
+            border-radius: 0 0 4px 4px;
+        }
+
+        /* --- PRODUCT CARD AMAZON STYLE --- */
+        .card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            border-color: var(--amazon-orange);
+        }
+
+        /* Discount Badge */
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--price-red);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 2px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Prime Badge */
+        .prime-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #00a8e1;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 2px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            z-index: 2;
+            text-transform: uppercase;
+            font-style: italic;
+        }
+
+        /* Image Wrapper */
+        .img-wrapper {
+            width: 100%;
+            position: relative;
+            background: white;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 220px;
+            padding: 15px;
+            cursor: pointer;
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-name {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            height: 42px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: horizontal;
+            margin-bottom: 8px;
+            color: var(--text-black);
+            font-weight: 400;
+        }
+
+        .product-name:hover {
+            color: var(--amazon-orange);
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+
+        .stars {
+            color: var(--amazon-orange);
+            letter-spacing: 1px;
+            font-size: 1rem;
+        }
+
+        .review-count {
+            color: var(--link-blue);
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .review-count:hover {
+            color: var(--price-red);
+        }
+
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-top: auto;
+            flex-wrap: wrap;
+        }
+
+        .currency-symbol { 
+            font-size: 0.8rem; 
+            color: var(--text-black); 
+            font-weight: 500;
+            vertical-align: super;
+        }
+        
+        .current-price { 
+            font-size: 1.4rem; 
+            color: var(--price-red); 
+            font-weight: 500; 
+        }
+        
+        .old-price { 
+            font-size: 0.85rem; 
+            text-decoration: line-through; 
+            color: var(--text-gray); 
+        }
+
+        .savings {
+            font-size: 0.8rem;
+            color: var(--price-red);
+            font-weight: 500;
+            margin-top: 4px;
+            background: #fff0f0;
+            padding: 2px 6px;
+            border-radius: 2px;
+            display: inline-block;
+        }
+
+        /* Stock Bar Amazon Style */
+        .stock-container {
+            margin-top: 12px;
+            position: relative;
+            height: 20px;
+        }
+        
+        .progress-bg {
+            background: #f0f0f0;
+            height: 16px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, var(--amazon-orange) 0%, #ffad33 100%);
+            height: 100%;
+            border-radius: 8px;
+            transition: width 0.3s ease;
+        }
+        
+        .stock-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.65rem;
+            color: var(--text-black);
+            font-weight: 700;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* BUY BUTTON AMAZON STYLE */
+        .btn-buy {
+            background: var(--amazon-yellow);
+            color: var(--text-black);
+            border: 1px solid #fcd200;
+            width: 100%;
+            padding: 10px;
+            margin-top: 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .btn-buy:hover {
+            background: var(--amazon-yellow-hover);
+            border-color: #f2c200;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .delivery-info {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .delivery-info strong {
+            color: var(--text-black);
+            font-weight: 700;
+        }
+
+        .prime-delivery {
+            color: #00a8e1;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        /* Footer */
+        .amazon-footer {
+            background: var(--amazon-light-blue);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+
+        .back-to-top {
+            background: #37475a;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .back-to-top:hover {
+            background: #485769;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            padding: 20px 0;
+            border-bottom: 1px solid #3a4553;
+        }
+
+        .footer-column {
+            text-align: left;
+        }
+
+        .footer-column h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            display: block;
+            color: #ddd;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .footer-column a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .amazon-header {
+                flex-wrap: wrap;
+                padding: 10px;
+            }
+            
+            .search-bar {
+                order: 3;
+                margin: 10px 0 0 0;
+                max-width: 100%;
+            }
+            
+            .header-nav {
+                gap: 15px;
+            }
+            
+            .deals-banner {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+                margin: 10px;
+            }
+            
+            .product-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 10px;
+                padding: 10px;
+            }
+            
+            .current-price {
+                font-size: 1.1rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Progress Bar & Particles (HTML Static) -->
-    <div class="progress-bar" id="progressBar"></div>
-    <div class="bg-animation"></div>
-    <div class="particles" id="particles"></div>
 
-    <!-- Navigation -->
-    <nav id="navbar">
-        <a href="{{ '/' | relative_url }}" class="logo">CELEBRITY TOP 1</a>
-        <ul class="nav-links">
-            <li><a href="{{ '/' | relative_url }}">Home</a></li>
-            <li><a href="#article">Article</a></li>
-        </ul>
-    </nav>
+<!-- Amazon Header -->
+<header class="amazon-header">
+    <div class="logo-section">
+        <a href="#" class="amazon-logo">amazon<span>.com</span></a>
+    </div>
+    
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search products...">
+        <button class="search-btn">🔍</button>
+    </div>
+    
+    <div class="header-nav">
+        <div class="nav-item">
+            <div>Hello, Sign in</div>
+            <div class="nav-bold">Account & Lists</div>
+        </div>
+        <div class="nav-item">
+            <div>Returns</div>
+            <div class="nav-bold">& Orders</div>
+        </div>
+        <div class="nav-item" style="font-size: 1.5rem;">🛒</div>
+    </div>
+</header>
 
-    <!-- Social Share -->
-    <div class="social-share">
-        <a href="#" class="share-btn"><i class="fab fa-whatsapp"></i></a>
-        <a href="#" class="share-btn"><i class="fab fa-twitter"></i></a>
+<!-- Lightning Deals Banner -->
+<div class="deals-banner">
+    <div class="deals-title">
+        <div class="lightning-icon">⚡</div>
+        <div class="deals-text">
+            <h2>Lightning Deals</h2>
+            <p>Up to 90% Off - Limited Time Offer!</p>
+        </div>
+    </div>
+    <div class="countdown">
+        <div class="time-box" id="h">02</div>
+        <span class="time-separator">:</span>
+        <div class="time-box" id="m">15</div>
+        <span class="time-separator">:</span>
+        <div class="time-box" id="s">43</div>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- Helper Function for Redirect -->
+    <script>
+        function goToOffer() {
+            window.location.href = "https://www.effectivecpmnetwork.com/m48ukcbw2q?key=81f55ba90a003860f0bd7b5a9d22b1d0";
+        }
+    </script>
+
+    
+    
+    <div class="product-grid">
+        <!-- Product 1: iPhone 17 Pro Max -->
+        <div class="card">
+            <div class="discount-badge">Save 90%</div>
+            <div class="prime-badge">Prime</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjjxLq_-zNmpofsO-Si_Y9t_9W9ljfA6Nk7Q-84arxZ4wNch7xhl58kfePxyrgGH9RKgzQBJwLJmP4NlbsTwoAlnZqQaQtIlZsikV83jhG5qT0dMx8VMQh1NF3GAQ2XIyxj_7f5O3ljh5jIjLVdf4YLLWYFaJmX-rImx9AQNC4jFj8duUM4NqayHw46hSEx/s1600/iphone-17-pro-max-cosmic-orange.png" alt="iPhone 17 Pro Max">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Apple iPhone 17 Pro Max 256GB - Cosmic Orange</div>
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="review-count">2,847 ratings</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency-symbol">$</span>
+                    <span class="current-price">179.99</span>
+                    <span class="old-price">$1,799.99</span>
+                </div>
+                <div class="savings">Save $1,620.00 (90%)</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 98%;"></div>
+                    </div>
+                    <div class="stock-text">98% Claimed</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">Buy Now</button>
+                <div class="delivery-info">
+                    <span class="prime-delivery">✓prime</span> FREE Delivery <strong>Tomorrow</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 2: iPhone 17 Pro -->
+        <div class="card">
+            <div class="discount-badge">Save 90%</div>
+            <div class="prime-badge">Prime</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhaaMbYZ-qR05cOYXiQV9LshGL3sFdGGmP0Le-hsnDwBIaHbEa7ChEdaUWVm4jGicyY5E2_TXZRpdcPDjZpIgOU4dIJ7Kw8YXzXETb9xBMdlh-TBBYSRXYz8dqe5XZ1y1GyARaJMmlTbvw3r94pxOcHq9Cr3NStjcbSAtGpieo39zeblziIx4W2zTzou1Nc/s1600/iphone-17-pro-silver.png" alt="iPhone 17 Pro">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Apple iPhone 17 Pro 128GB - Silver Titanium</div>
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="review-count">1,923 ratings</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency-symbol">$</span>
+                    <span class="current-price">159.99</span>
+                    <span class="old-price">$1,599.99</span>
+                </div>
+                <div class="savings">Save $1,440.00 (90%)</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 95%;"></div>
+                    </div>
+                    <div class="stock-text">95% Claimed</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">Buy Now</button>
+                <div class="delivery-info">
+                    <span class="prime-delivery">✓prime</span> FREE Delivery <strong>Tomorrow</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 3: iPhone 16 Pro Max -->
+        <div class="card">
+            <div class="discount-badge">Save 90%</div>
+            <div class="prime-badge">Prime</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNktkqPmkww7YagUeRzaeOnbNEL6o9MiTDXPga5AAZUxMBGQ3SDpuTNjvnbdp8tGrNMD2gWMuImnIeswucAG1r-C6hQdg4AxefOUsrKD9cQsrw0W1-o597BcjXualVuIt4YuFJgHe1i1NAhvYyaREjfeFqUsMvqcnO3qYBX-34XwD64JvBIWhpVvK-p52D/s1600/Apple-iPhone-16-Pro-Max-HK-White-Titanium-1.png" alt="iPhone 16 Pro Max">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Apple iPhone 16 Pro Max 256GB - White Titanium</div>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="review-count">3,156 ratings</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency-symbol">$</span>
+                    <span class="current-price">169.99</span>
+                    <span class="old-price">$1,699.99</span>
+                </div>
+                <div class="savings">Save $1,530.00 (90%)</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 99%;"></div>
+                    </div>
+                    <div class="stock-text">99% Claimed</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">Buy Now</button>
+                <div class="delivery-info">
+                    <span class="prime-delivery">✓prime</span> FREE Delivery <strong>Tomorrow</strong>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- HERO SECTION OTOMATIS -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <div class="hero-text">
-                <span class="category-tag"><i class="fas fa-fire"></i> {{ page.category }}</span>
-                <h1 class="hero-title">{{ page.title }}</h1>
-                <p class="hero-subtitle">{{ page.excerpt }}</p>
-                <div class="hero-meta">
-                    <span><i class="far fa-calendar"></i> {{ page.date | date: "%B %d, %Y" }}</span>
-                    <span><i class="far fa-clock"></i> 5 min read</span>
+    
+    
+    <div class="product-grid">
+        <!-- Product 4: S25 Ultra -->
+        <div class="card">
+            <div class="discount-badge">Save 90%</div>
+            <div class="prime-badge">Prime</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiETb-xBEgGgVLSsrhq2C9Dgv9JYBWT7Qlh4uTdx8_JITqrE6fXDHf-8M6934XD-elI-5Sx1QsLGDJUglnMyHn5QgzNn9wqkB0f2mP4Qca4DyWl02hxBD1MYk02fmCruFuW1_0ugvno9KsCm0ITwL270ycWuqb4p-Rpwi782k4_74cfJxbq9fdQHRrqXzkZ/s1600/S25ULTRATITANIUMWHITESILVER_800x.webp" alt="S25 Ultra">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Samsung Galaxy S25 Ultra 5G 12/256GB - Titanium White</div>
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="review-count">1,890 ratings</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency-symbol">$</span>
+                    <span class="current-price">159.99</span>
+                    <span class="old-price">$1,599.99</span>
+                </div>
+                <div class="savings">Save $1,440.00 (90%)</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 92%;"></div>
+                    </div>
+                    <div class="stock-text">92% Claimed</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">Buy Now</button>
+                <div class="delivery-info">
+                    <span class="prime-delivery">✓prime</span> FREE Delivery <strong>Tomorrow</strong>
                 </div>
             </div>
-            
-            <!-- Gambar Utama Otomatis -->
-            <div class="hero-images">
-                {% if page.image %}
-                <div class="hero-image-main">
-                    <img src="{{ page.image }}" alt="{{ page.title }}">
+        </div>
+
+        <!-- Product 5: Z Fold 7 -->
+        <div class="card">
+            <div class="discount-badge">Save 90%</div>
+            <div class="prime-badge">Prime</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg8OgSL6eLOkbMC8yDy4Ay-eMxQERogMNrP_iIMImclWsQPQbeiLY4Bds3V8k_jHZMV3p4YCN0oAxuyzPt-Ml0EOJUULxUVugt5-ZrY8Y2vAFpgq9yYY_jBVCtNE2K0pR1CcsBVaUK-Ms4_o3tCrRRxzg1iTxeB_GJ5j-NKbPy6pKEStamE7bp47QMv5IrW/s1600/Samsung-Galaxy-Z-Fold-7-Silver-Shadow-1.png" alt="Z Fold 7">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Samsung Galaxy Z Fold 7 256GB - Silver Shadow</div>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="review-count">987 ratings</span>
                 </div>
-                {% endif %}
-                
-                <div class="floating-badge">
-                    <h3>TRENDING</h3>
-                    <p>Hot News</p>
+                <div class="price-row">
+                    <span class="currency-symbol">$</span>
+                    <span class="current-price">199.99</span>
+                    <span class="old-price">$1,999.99</span>
+                </div>
+                <div class="savings">Save $1,800.00 (90%)</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 88%;"></div>
+                    </div>
+                    <div class="stock-text">88% Claimed</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">Buy Now</button>
+                <div class="delivery-info">
+                    <span class="prime-delivery">✓prime</span> FREE Delivery <strong>Tomorrow</strong>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- KONTEN ARTIKEL OTOMATIS -->
-    <article class="article-container" id="article">
-        <div class="article-section">
-            <!-- {{ content }} ini akan memunculkan teks artikel yang Anda tulis di file .md -->
-            {{ content }} 
-        </div>
-    </article>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>CELEBRITY TOP 1</h3>
-                <p>Your trusted source for the latest news.</p>
+        <!-- Product 6: S25 Plus -->
+        <div class="card">
+            <div class="discount-badge">Save 90%</div>
+            <div class="prime-badge">Prime</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhGIo0Tq6sqPuSuDJeciVZeYYX4J09xfNxyq0rFfcFb44prfKs7s_foktIZueaRLJPGgsZWGwTOwuSFGn247aptNSepMYyRujoyZ9358rlPjQCIYXznMQwOZ9Ook-JxRN999KGkJ_B6_dQbagCduTM-DvYH1lLmdu2vEodRANcTceU2FSRYFigzaFbB1pGC/s1600/Samsung-S25-Plus-Silver-Shadow-1.png" alt="S25 Plus">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Samsung Galaxy S25+ 5G 12/256GB - Silver Shadow</div>
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="review-count">1,542 ratings</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency-symbol">$</span>
+                    <span class="current-price">139.99</span>
+                    <span class="old-price">$1,399.99</span>
+                </div>
+                <div class="savings">Save $1,260.00 (90%)</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 96%;"></div>
+                    </div>
+                    <div class="stock-text">96% Claimed</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">Buy Now</button>
+                <div class="delivery-info">
+                    <span class="prime-delivery">✓prime</span> FREE Delivery <strong>Tomorrow</strong>
+                </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Celebrity Top 1. All rights reserved.</p>
-        </div>
-    </footer>
+    </div>
 
-    <!-- Script Particles & Progress Bar (Static) -->
-    <script>
-        // Paste script particles dan progress bar Anda di sini
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particlesContainer.appendChild(particle);
+    
+    
+    <div class="product-grid">
+        <!-- Product 7: Vivo X200 Ultra -->
+        <div class="card">
+            <div class="discount-badge">Save 90%</div>
+            <div class="prime-badge">Prime</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhN72DMbP5SA-IeNU6ioVvVH7x1whdoceRec8ZAXhg22xDfMg7wiO9CI8dXq8fiQnx5dP404b5u7JV5qCHh6CYm6Ix20FqZ0_3rN9vIa6uo9vFdhYD5Nn2fnKmyyz8iSRTxI6QuA0K1-Oi1dkb0mNVMFcS9XEAJ5S3dcRE3Jaoh6HpaibZaETU5CHtzlKEN/s1600/vivo%20x200%20ultra.jpeg" alt="X200 Ultra">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Vivo X200 Ultra 5G 16/512GB - Titanium Gray</div>
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="review-count">756 ratings</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency-symbol">$</span>
+                    <span class="current-price">129.99</span>
+                    <span class="old-price">$1,299.99</span>
+                </div>
+                <div class="savings">Save $1,170.00 (90%)</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 94%;"></div>
+                    </div>
+                    <div class="stock-text">94% Claimed</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">Buy Now</button>
+                <div class="delivery-info">
+                    <span class="prime-delivery">✓prime</span> FREE Delivery <strong>Tomorrow</strong>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Product 8: Vivo X Fold 5 -->
+        <div class="card">
+            <div class="discount-badge">Save 90%</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhgI01lgchnpZeTQq6BW4o9ROd2n5FYxaxISoe7fX_PexsJOQiQzvpfOMOb4reXQ9dekQDDkUjGFpn4PvIDDtS8fQGlv-ocVRcMnunVjOLInOgl7qfo9KBh_TeD83AMUIuQRGUsPGUolPHOx_30sUk0pYM4GNzmb4IjMTZbQyLVUxczjODL_m9cZG9Z7tj0/s1600/vivo%20x%20fold%205.webp" alt="X Fold 5">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Vivo X Fold 5 12/256GB - Ceramic Black</div>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="review-count">543 ratings</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency-symbol">$</span>
+                    <span class="current-price">179.99</span>
+                    <span class="old-price">$1,799.99</span>
+                </div>
+                <div class="savings">Save $1,620.00 (90%)</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 85%;"></div>
+                    </div>
+                    <div class="stock-text">85% Claimed</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">Buy Now</button>
+                <div class="delivery-info">
+                    <span class="prime-delivery">✓prime</span> FREE Delivery <strong>Tomorrow</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 9: Vivo V50 Pro -->
+        <div class="card">
+            <div class="discount-badge">Save 90%</div>
+            <div class="prime-badge">Prime</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_CpNS1SIAQ0NRwDr1fyUyEfh4rHAqc924KG_TbMskE-76KIbhjR7gBueNC5KVgZ_CtXaCXhgs3yP4yWlqfunm4nbG2GJqaTtCrfywf30zR5GCbhtGFPPTRLnVCIQa6O5V2L7Z9RQF3UsBLa0FF0kTxzJwXH705BjOy51-x4COID6rLcpl9gEFAHjvzeLp/s1600/vivo%20v50.png" alt="V50 Pro">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Vivo V50 Pro 5G 12/256GB - Noble Black</div>
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="review-count">1,102 ratings</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency-symbol">$</span>
+                    <span class="current-price">69.99</span>
+                    <span class="old-price">$699.99</span>
+                </div>
+                <div class="savings">Save $630.00 (90%)</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 99%;"></div>
+                    </div>
+                    <div class="stock-text">99% Claimed</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">Buy Now</button>
+                <div class="delivery-info">
+                    <span class="prime-delivery">✓prime</span> FREE Delivery <strong>Tomorrow</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    <div class="product-grid">
+        <!-- Product 10: Oppo Find X8 Ultra -->
+        <div class="card">
+            <div class="discount-badge">Save 90%</div>
+            <div class="prime-badge">Prime</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhOYBPfE_v3ucRp7IolbVOKXatbyw73XzDq_PVuN2Z9gD8AOvw_56N2d0hCYyvyVWZJe9Z4yc0RRlfRnIbHj-COKSednkHFj3FhmpAr5f8nQusQw23lrC3Xn6ZcPq4JoSbHFqhntYiAUYB1R7L0ifZ914LCpHblTJvAjdoKF0_wifemOXtoz89YrMcxOvZi/s1600/oppo%20find%20x8%20ultra.jpeg" alt="Find X8 Ultra">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Oppo Find X8 Ultra 16/512GB - Desert Silver</div>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="review-count">634 ratings</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency-symbol">$</span>
+                    <span class="current-price">139.99</span>
+                    <span class="old-price">$1,399.99</span>
+                </div>
+                <div class="savings">Save $1,260.00 (90%)</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 91%;"></div>
+                    </div>
+                    <div class="stock-text">91% Claimed</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">Buy Now</button>
+                <div class="delivery-info">
+                    <span class="prime-delivery">✓prime</span> FREE Delivery <strong>Tomorrow</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 11: Oppo Find N5 -->
+        <div class="card">
+            <div class="discount-badge">Save 90%</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh7BjoYsyk4ESHFuAIen1eW6dFs9OdVhRgVFxcnwvL36XR1n6hJ9jykWUUFNumfV-vVKuyVhXRXfmcaAbFmZ6iK3Qbd7O6lYWt4n4E5jmdyEviZRvW91DCkasR9ydkjxGe0ZY7ddPCDnuNWX-NNPFLYm8FYqU6dDrxjhioIBfP8CecOiUhlDS5gv8xLalIj/s1600/oppo%20find%20n5.jpeg" alt="Find N5">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Oppo Find N5 12/256GB - Phantom Black</div>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="review-count">421 ratings</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency-symbol">$</span>
+                    <span class="current-price">169.99</span>
+                    <span class="old-price">$1,699.99</span>
+                </div>
+                <div class="savings">Save $1,530.00 (90%)</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 80%;"></div>
+                    </div>
+                    <div class="stock-text">80% Claimed</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">Buy Now</button>
+                <div class="delivery-info">
+                    <span class="prime-delivery">✓prime</span> FREE Delivery <strong>Tomorrow</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 12: Oppo Reno 14 Pro+ -->
+        <div class="card">
+            <div class="discount-badge">Save 90%</div>
+            <div class="prime-badge">Prime</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhtaSRifk5ZHc8LE2Wtmz4aFM_0TrHk1s0Fvjr-b-k-OEzyTJqXydyZDNsZPPvrfZCKSzWs8uttFhBAsILNV9ecpkgl3UJaCSQ920OGF_c7h3fPcytExZZk4sEvHEqM-Wyg3d-Rs5rks6pKc6bE5NeVtsfJwoKX_NW2W1jAIRpfNFr7_MoayKD26H2iyNUc/s1600/Oppo-Reno-14-Pro-Titanium-Grey-1.png-.png" alt="Reno 14 Pro+">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Oppo Reno 14 Pro+ 5G 12/256GB - Titanium Grey</div>
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="review-count">890 ratings</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency-symbol">$</span>
+                    <span class="current-price">79.99</span>
+                    <span class="old-price">$799.99</span>
+                </div>
+                <div class="savings">Save $720.00 (90%)</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 97%;"></div>
+                    </div>
+                    <div class="stock-text">97% Claimed</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">Buy Now</button>
+                <div class="delivery-info">
+                    <span class="prime-delivery">✓prime</span> FREE Delivery <strong>Tomorrow</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    <div class="product-grid">
+        <!-- Product 13: Xiaomi 15 Ultra -->
+        <div class="card">
+            <div class="discount-badge">Save 90%</div>
+            <div class="prime-badge">Prime</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggfIu8bK13nOD7vv02mk2XhI4i4U_RN-9gUgwrnpNJ9DVqg95xG0DSoeul0HxCCElHfHiYrkKRas6QdLrBgeQ1Vlyu3BhCtrI0rmU7nEOpTtj_I-SxChdCjVlfg2qunPGRDwNhhEN5enp-emSNTEfnhC27HcsTwuCK6X6bLwaL_WhMQrt8dw7Y9g3tuGCF/s1600/viaomi%2015%20ultra.webp" alt="Xiaomi 15 Ultra">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Xiaomi 15 Ultra 16/512GB - Ceramic Black</div>
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="review-count">1,245 ratings</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency-symbol">$</span>
+                    <span class="current-price">149.99</span>
+                    <span class="old-price">$1,499.99</span>
+                </div>
+                <div class="savings">Save $1,350.00 (90%)</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 93%;"></div>
+                    </div>
+                    <div class="stock-text">93% Claimed</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">Buy Now</button>
+                <div class="delivery-info">
+                    <span class="prime-delivery">✓prime</span> FREE Delivery <strong>Tomorrow</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 14: Poco F7 Ultra -->
+        <div class="card">
+            <div class="discount-badge">Save 90%</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHbyoYc8QvnXeBqhw5wi2ypbHkELBtdnas6EqsGmdeSbRQBUA3e5ExkBMeWONQrnmr8j1qAUVKxTqhZoHuQt9_DCjCucKHsIrbzuTUCXU_3a0P2q6pTqTnsl03L9IyUVXuiV0h04lqy9Ib3duNix5tMxrad1RMDwK01KM0KmCtfJtuU_ofn-SiWvrrS2xd/s1600/Xiaomi-Poco-F7-Ultra-Dual-sim-5G-_12GB-ram_-Global-Xiaomi-167998093.webp" alt="Poco F7 Ultra">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Poco F7 Ultra 12/256GB - Racing Yellow</div>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="review-count">892 ratings</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency-symbol">$</span>
+                    <span class="current-price">69.99</span>
+                    <span class="old-price">$699.99</span>
+                </div>
+                <div class="savings">Save $630.00 (90%)</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 99%;"></div>
+                    </div>
+                    <div class="stock-text">99% Claimed</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">Buy Now</button>
+                <div class="delivery-info">
+                    <span class="prime-delivery">✓prime</span> FREE Delivery <strong>Tomorrow</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 15: Redmi K90 Pro Max -->
+        <div class="card">
+            <div class="discount-badge">Save 90%</div>
+            <div class="prime-badge">Prime</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi2sU6UsljALU8yVtHzBx3KNKEeyH-1cd-ahj6BBXILJCR3okH1RAQb09HW_QBMDokjqi91BR_8qClYPgyao0N8XsvkREzek6us9IyNqr2oGfjvq_eFCPcqxVVAn91TO7epsp8s__x1dvj0JTLVUje7hnuhi2bPxaV18H1ikMwGuV-Dc3RM5LahuB-wo6Oi/s1600/Redmi%20k90%20pro%20max.webp" alt="Redmi K90 Pro">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Redmi K90 Pro Max 12/256GB - Midnight Black</div>
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="review-count">2,105 ratings</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency-symbol">$</span>
+                    <span class="current-price">59.99</span>
+                    <span class="old-price">$599.99</span>
+                </div>
+                <div class="savings">Save $540.00 (90%)</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 98%;"></div>
+                    </div>
+                    <div class="stock-text">98% Claimed</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">Buy Now</button>
+                <div class="delivery-info">
+                    <span class="prime-delivery">✓prime</span> FREE Delivery <strong>Tomorrow</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Back to Top -->
+<div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+    Back to top
+</div>
+
+<!-- Footer -->
+<footer class="amazon-footer">
+    <div class="footer-links">
+        <div class="footer-column">
+            <h4>Get to Know Us</h4>
+            <a href="#">Careers</a>
+            <a href="#">Blog</a>
+            <a href="#">About Amazon</a>
+            <a href="#">Investor Relations</a>
+        </div>
+        <div class="footer-column">
+            <h4>Make Money with Us</h4>
+            <a href="#">Sell products on Amazon</a>
+            <a href="#">Sell on Amazon Business</a>
+            <a href="#">Become an Affiliate</a>
+            <a href="#">Advertise Your Products</a>
+        </div>
+        <div class="footer-column">
+            <h4>Amazon Payment Products</h4>
+            <a href="#">Amazon Business Card</a>
+            <a href="#">Shop with Points</a>
+            <a href="#">Reload Your Balance</a>
+            <a href="#">Amazon Currency Converter</a>
+        </div>
+        <div class="footer-column">
+            <h4>Let Us Help You</h4>
+            <a href="#">Your Account</a>
+            <a href="#">Your Orders</a>
+            <a href="#">Shipping Rates & Policies</a>
+            <a href="#">Returns & Replacements</a>
+            <a href="#">Help</a>
+        </div>
+    </div>
+    <div class="copyright">
+        © 1996-2026, Amazon.com, Inc. or its affiliates
+    </div>
+</footer>
+
+<script>
+    // Countdown Timer Logic
+    function startTimer(duration, displayH, displayM, displayS) {
+        var timer = duration, hours, minutes, seconds;
+        setInterval(function () {
+            hours = parseInt(timer / 3600, 10);
+            minutes = parseInt((timer % 3600) / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            hours = hours < 10 ? "0" + hours : hours;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            displayH.textContent = hours;
+            displayM.textContent = minutes;
+            displayS.textContent = seconds;
+
+            if (--timer < 0) {
+                timer = duration;
             }
-        }
-        createParticles();
+        }, 1000);
+    }
 
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById('progressBar').style.width = scrolled + '%';
-            
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) nav.classList.add('scrolled');
-            else nav.classList.remove('scrolled');
-        });
-    </script>
+    window.onload = function () {
+        var fiveHours = 60 * 60 * 5;
+        var h = document.querySelector('#h');
+        var m = document.querySelector('#m');
+        var s = document.querySelector('#s');
+        startTimer(fiveHours, h, m, s);
+    };
+</script>
+
 </body>
 </html>
