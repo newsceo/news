@@ -4,147 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Celebrity Top 1 - Home</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Kita pakai CSS sederhana untuk homepage agar loading cepat -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="header-container">
-            <a href="index.html" class="logo">Celebrity Top 1</a>
-            <nav class="nav-menu">
-                <a href="index.html">Home</a>
-                <a href="#categories">Categories</a>
-                <a href="#trending">Trending</a>
-                <a href="#about">About</a>
-            </nav>
+    <!-- Header Simple -->
+    <header class="simple-header">
+        <div class="container">
+            <a href="index.html" class="logo">CELEBRITY TOP 1</a>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <h1 class="hero-title">Discover Amazing Stories</h1>
-        <p class="hero-subtitle">Explore our curated collection of articles covering celebrities, entertainment, lifestyle, and more</p>
+    <!-- Hero Title -->
+    <section class="hero-simple">
+        <h1>Latest Stories</h1>
+        <p>Curated celebrity news with cinematic depth.</p>
     </section>
 
-    <!-- Blog Posts Grid -->
-    <main class="blog-container">
-        <div class="blog-grid">
+    <!-- Grid Postingan -->
+    <main class="container">
+        <div class="post-grid">
 
-            <!-- Post Card 1 -->
-            <article class="post-card">
-                <a href="posts/top-celebrity-events.html" class="post-thumbnail-link">
-                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800" alt="Celebrity Events" class="post-thumbnail" loading="lazy">
-                </a>
+            <!-- ARTIKEL 1 (Link ke file premium kita) -->
+            <article class="card">
+                <div class="card-image">
+                    <!-- Ganti URL gambar sesuai keinginan -->
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCBuQhJxBr5Ui3AnOQnMHZ04uq0ZHj0EqpJHKtE6UGiTGz1ZMWUS4dCQore1apsMKx7zRDMf_EBV6uQ_1PX1n4oCcSNPyErpvo1g9lH_2x8z8iZocIDubXlVlOT2ymq2YUf_RxiLcz-5CnUmsiiSiUldSc1va_vVx_ojGRZJsk6D5CKK1ij2QEqcW2btY/s1600/zen.webp" alt="Sydney Sweeney">
+                </div>
                 <div class="card-content">
-                    <span class="post-category">Entertainment</span>
-                    <h2 class="home-post-title">
-                        <a href="posts/amazon.html">2026</a>
-                    </h2>
-                    <p class="post-snippet">amazon</p>
-                    <div class="card-meta">
-                        <span>June 8, 2026</span>
-                        <a href="posts/amazon.html" class="read-more-btn">Read More →</a>
-                    </div>
+                    <span class="tag">Breaking News</span>
+                    <h2><a href="posts/sydney-zendaya.html">Sydney Sweeney & Zendaya: The Feud Rumors</a></h2>
+                    <p>Controversial star sparks rumors after excluding co-star from Season 3 photos...</p>
+                    <a href="posts/sydney-zendaya.html" class="read-btn">Read Article →</a>
                 </div>
             </article>
 
-            <!-- Post Card 2 -->
-            <article class="post-card">
-                <a href="posts/fashion-trends-2026.html" class="post-thumbnail-link">
-                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800" alt="Fashion Trends" class="post-thumbnail" loading="lazy">
-                </a>
+            <!-- ARTIKEL 2 (Contoh Placeholder) -->
+            <article class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800" alt="Fashion">
+                </div>
                 <div class="card-content">
-                    <span class="post-category">Fashion</span>
-                    <h2 class="home-post-title">
-                        <a href="posts/fashion-trends-2026.html">Celebrity Fashion Trends Dominating 2026</a>
-                    </h2>
-                    <p class="post-snippet">Explore the latest fashion trends set by your favorite celebrities and how you can incorporate them into your wardrobe...</p>
-                    <div class="card-meta">
-                        <span>June 7, 2026</span>
-                        <a href="posts/fashion-trends-2026.html" class="read-more-btn">Read More →</a>
-                    </div>
+                    <span class="tag">Fashion</span>
+                    <h2><a href="#">Top Fashion Trends 2026</a></h2>
+                    <p>Exploring the latest styles from Paris and Milan fashion weeks...</p>
+                    <a href="#" class="read-btn">Read Article →</a>
                 </div>
             </article>
 
-            <!-- Post Card 3 -->
-            <article class="post-card">
-                <a href="posts/music-collaborations.html" class="post-thumbnail-link">
-                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800" alt="Music" class="post-thumbnail" loading="lazy">
-                </a>
-                <div class="card-content">
-                    <span class="post-category">Music</span>
-                    <h2 class="home-post-title">
-                        <a href="posts/music-collaborations.html">Behind the Scenes: Music Industry's Biggest Collaborations</a>
-                    </h2>
-                    <p class="post-snippet">Get an exclusive look at how today's biggest music collaborations come together and what makes them successful...</p>
-                    <div class="card-meta">
-                        <span>June 6, 2026</span>
-                        <a href="posts/music-collaborations.html" class="read-more-btn">Read More →</a>
-                    </div>
+             <!-- ARTIKEL 3 (Contoh Placeholder) -->
+             <article class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=800" alt="Music">
                 </div>
-            </article>
-
-            <!-- Post Card 4 -->
-            <article class="post-card">
-                <a href="posts/work-life-balance.html" class="post-thumbnail-link">
-                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800" alt="Lifestyle" class="post-thumbnail" loading="lazy">
-                </a>
                 <div class="card-content">
-                    <span class="post-category">Lifestyle</span>
-                    <h2 class="home-post-title">
-                        <a href="posts/work-life-balance.html">How Celebrities Maintain Work-Life Balance</a>
-                    </h2>
-                    <p class="post-snippet">Learn the secrets behind how A-list celebrities manage their demanding careers while maintaining personal wellness...</p>
-                    <div class="card-meta">
-                        <span>June 5, 2026</span>
-                        <a href="posts/work-life-balance.html" class="read-more-btn">Read More →</a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Post Card 5 -->
-            <article class="post-card">
-                <a href="posts/concert-tours-2026.html" class="post-thumbnail-link">
-                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800" alt="Concert" class="post-thumbnail" loading="lazy">
-                </a>
-                <div class="card-content">
-                    <span class="post-category">Entertainment</span>
-                    <h2 class="home-post-title">
-                        <a href="posts/concert-tours-2026.html">Must-Attend Concert Tours of 2026</a>
-                    </h2>
-                    <p class="post-snippet">Don't miss these incredible live performances from the world's most talented artists happening this year...</p>
-                    <div class="card-meta">
-                        <span>June 4, 2026</span>
-                        <a href="posts/concert-tours-2026.html" class="read-more-btn">Read More →</a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Post Card 6 -->
-            <article class="post-card">
-                <a href="posts/rising-stars.html" class="post-thumbnail-link">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800" alt="Rising Stars" class="post-thumbnail" loading="lazy">
-                </a>
-                <div class="card-content">
-                    <span class="post-category">Celebrities</span>
-                    <h2 class="home-post-title">
-                        <a href="posts/rising-stars.html">Rising Stars: New Talents Taking Hollywood by Storm</a>
-                    </h2>
-                    <p class="post-snippet">Meet the breakthrough actors and actresses who are making waves in the entertainment industry...</p>
-                    <div class="card-meta">
-                        <span>June 3, 2026</span>
-                        <a href="posts/rising-stars.html" class="read-more-btn">Read More →</a>
-                    </div>
+                    <span class="tag">Music</span>
+                    <h2><a href="#">Behind the Scenes: Global Tour</a></h2>
+                    <p>Exclusive look at the biggest concert production of the year...</p>
+                    <a href="#" class="read-btn">Read Article →</a>
                 </div>
             </article>
 
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p class="footer-text">© 2026 Celebrity Top 1. All rights reserved.</p>
+    <footer class="simple-footer">
+        <p>&copy; 2026 Celebrity Top 1. All rights reserved.</p>
     </footer>
 
 </body>
