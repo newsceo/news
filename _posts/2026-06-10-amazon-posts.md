@@ -1,5 +1,5 @@
 ---
-layout: amazon-post
+layout: amazon-posts
 title: "Amazon Lightning Deals - Up to 90% Off!"
 date: 2026-06-10
 category: Shopping
