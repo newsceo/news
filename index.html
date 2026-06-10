@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebrity Top 1 - Home</title>
+    <!-- Kita pakai CSS sederhana untuk homepage agar loading cepat -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header Simple -->
+    <header class="simple-header">
+        <div class="container">
+            <a href="index.html" class="logo">CELEBRITY TOP 1</a>
+        </div>
+    </header>
+
+    <!-- Hero Title -->
+    <section class="hero-simple">
+        <h1>Latest Stories</h1>
+        <p>Curated celebrity news with cinematic depth.</p>
+    </section>
+
+    <!-- Grid Postingan (di-generate otomatis oleh JavaScript) -->
+    <main class="container">
+        <div class="post-grid" id="postGrid">
+            <!-- Postingan akan diisi otomatis dari data.js -->
+        </div>
+    </main>
+
+    <footer class="simple-footer">
+        <p>&copy; 2026 Celebrity Top 1. All rights reserved.</p>
+    </footer>
+
+    <!-- Load data posts -->
+    <script src="data.js"></script>
+    <!-- Generate kartu postingan -->
+    <script>
+        // Render semua postingan dari data.js ke dalam postGrid
+        const postGrid = document.getElementById('postGrid');
+
+        postsData.forEach(post => {
+            // Buat elemen <article>
+            const article = document.createElement('article');
+            article.className = 'card';
+
+            // Isi konten artikel
+            article.innerHTML = `
+                <div class="card-image">
+                    <img src="${post.image}" alt="${post.alt}">
+                </div>
+                <div class="card-content">
+                    <span class="tag">${post.tag}</span>
+                    <h2><a href="${post.link}">${post.title}</a></h2>
+                    <p>${post.description}</p>
+                    <a href="${post.link}" class="read-btn">Read Article →</a>
+                </div>
+            `;
+
+            // Masukkan ke grid
+            postGrid.appendChild(article);
+        });
+    </script>
+
+</body>
+</html>
