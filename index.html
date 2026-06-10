@@ -1,50 +1,71 @@
----
-layout: default
-title: Home
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebrity Top 1 - Home</title>
+    <!-- Kita pakai CSS sederhana untuk homepage agar loading cepat -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
-<!-- Hero Section -->
-<section class="hero-section">
-    <h1 class="hero-title">Discover Amazing Stories</h1>
-    <p class="hero-subtitle">Explore our curated collection of articles covering celebrities, entertainment, lifestyle, and more</p>
-</section>
+    <!-- Header Simple -->
+    <header class="simple-header">
+        <div class="container">
+            <a href="index.html" class="logo">CELEBRITY TOP 1</a>
+        </div>
+    </header>
 
-<!-- Blog Posts Grid -->
-<main class="blog-container">
-    <div class="blog-grid">
-        {% for post in site.posts %}
-        <article class="post-card">
-            
-            <!-- Thumbnail -->
-            {% if post.image %}
-            <a href="{{ post.url | relative_url }}" class="post-thumbnail-link">
-                <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="post-thumbnail" loading="lazy">
-            </a>
-            {% endif %}
+    <!-- Hero Title -->
+    <section class="hero-simple">
+        <h1>Latest Stories</h1>
+        <p>Curated celebrity news with cinematic depth.</p>
+    </section>
 
-            <!-- Content -->
-            <div class="card-content">
-                
-                <!-- Category -->
-                {% if post.category %}
-                <span class="post-category">{{ post.category }}</span>
-                {% endif %}
+    <!-- Grid Postingan (di-generate otomatis oleh JavaScript) -->
+    <main class="container">
+        <div class="post-grid" id="postGrid">
+            <!-- Postingan akan diisi otomatis dari data.js -->
+        </div>
+    </main>
 
-                <!-- Title -->
-                <h2 class="home-post-title">
-                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                </h2>
+    <footer class="simple-footer">
+        <p>&copy; 2026 Celebrity Top 1. All rights reserved.</p>
+    </footer>
 
-                <!-- Excerpt -->
-                <p class="post-snippet">{{ post.excerpt | strip_html | truncate: 150 }}</p>
+    <!-- Generate kartu postingan dari data.json -->
+    <script>
+        // Render semua postingan dari data.json ke dalam postGrid
+        fetch('data.json')
+            .then(response => response.json())
+            .then(postsData => {
+                const postGrid = document.getElementById('postGrid');
 
-                <!-- Meta -->
-                <div class="card-meta">
-                    <span>{{ post.date | date: "%B %d, %Y" }}</span>
-                    <a href="{{ post.url | relative_url }}" class="read-more-btn">Read More →</a>
-                </div>
-            </div>
-        </article>
-        {% endfor %}
-    </div>
-</main>
+                postsData.forEach(post => {
+                    // Buat elemen <article>
+                    const article = document.createElement('article');
+                    article.className = 'card';
+
+                    // Isi konten artikel
+                    article.innerHTML = `
+                        <div class="card-image">
+                            <img src="${post.image}" alt="${post.alt}">
+                        </div>
+                        <div class="card-content">
+                            <span class="tag">${post.tag}</span>
+                            <h2><a href="${post.link}">${post.title}</a></h2>
+                            <p>${post.description}</p>
+                            <a href="${post.link}" class="read-btn">Read Article →</a>
+                        </div>
+                    `;
+
+                    // Masukkan ke grid
+                    postGrid.appendChild(article);
+                });
+            })
+            .catch(error => console.error('Error loading data.json:', error));
+    </script>
+
+</body>
+</html>
