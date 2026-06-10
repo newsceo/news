@@ -1,18 +1,3 @@
----
-layout: post
-title: "Sydney Sweeney & Zendaya: The Feud Rumors"
-date: 2026-06-11
-category: Breaking News
-image: https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCBuQhJxBr5Ui3AnOQnMHZ04uq0ZHj0EqpJHKtE6UGiTGz1ZMWUS4dCQore1apsMKx7zRDMf_EBV6uQ_1PX1n4oCcSNPyErpvo1g9lH_2x8z8iZocIDubXlVlOT2ymq2YUf_RxiLcz-5CnUmsiiSiUldSc1va_vVx_ojGRZJsk6D5CKK1ij2QEqcW2btY/s1600/zen.webp
-excerpt: Controversial star sparks rumors after excluding co-star from Season 3 photos...
----
-
-The entertainment world is buzzing with speculation after Sydney Sweeney's recent Instagram post excluded her Euphoria co-star Zendaya from the Season 3 promotional photos.
-
-Fans have taken to social media to express their concerns about the apparent rift between the two actresses.
-
-<!-- Tambah konten lengkap di sini -->
-
 <!DOCTYPE html>
 <html lang="en-US" prefix="og: https://ogp.me/ns#">
 <head>
