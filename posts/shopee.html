@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="id-ID" prefix="og: https://ogp.me/ns#">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title>Shopee Flash Sale - Diskon 90% Gila!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        :root {
+            --shopee-orange: #ee4d2d;
+            --shopee-dark: #d73211;
+            --bg-gray: #f5f5f5;
+            --text-black: #222222;
+            --text-gray: #757575;
+            --price-red: #ee4d2d;
+            --yellow-badge: #ffd839;
+            --border-color: #e8e8e8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+
+        body {
+            background-color: var(--bg-gray);
+            color: var(--text-black);
+            padding-bottom: 80px; /* Space for bottom nav */
+        }
+
+        /* --- FLASH SALE BANNER --- */
+        .fs-banner {
+            background: white;
+            max-width: 350px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 4px;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+        }
+
+        .fs-title {
+            color: var(--shopee-orange);
+            font-size: 1.5rem;
+            font-weight: 800;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 10px;
+        }
+
+        .time-box {
+            background: black;
+            color: white;
+            padding: 4px 6px;
+            border-radius: 2px;
+            font-weight: 700;
+            font-size: 1rem;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .view-all {
+            color: var(--shopee-orange);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* --- MAIN CONTENT --- */
+        .container { max-width: 700px; margin: 0 auto; padding: 0 10px; }
+
+        .section-header {
+            background: white;
+            padding: 15px;
+            margin-top: 20px;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 700;
+            color: var(--shopee-orange);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-radius: 4px 4px 0 0;
+            position: sticky;
+            top: 70px; 
+            z-index: 900;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* --- PRODUCT CARD AUTHENTIC --- */
+        .card {
+            background: white;
+            border: 1px solid transparent;
+            border-radius: 2px;
+            transition: transform 0.1s, border 0.1s, box-shadow 0.1s;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-1px);
+            border: 1px solid var(--shopee-orange);
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Discount Badge Triangle */
+        .discount-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: rgba(255, 212, 57, 0.9);
+            width: 40px;
+            height: 36px;
+            text-align: center;
+            padding-top: 6px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--shopee-orange);
+            z-index: 2;
+            pointer-events: none; /* Agar klik tembus ke elemen di bawahnya jika perlu */
+        }
+        .discount-badge::after {
+            content: "";
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 5px solid rgba(255, 212, 57, 0.9);
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            transform: rotate(180deg);
+        }
+
+        /* Image Wrapper */
+        .img-wrapper {
+            width: 100%;
+            position: relative;
+            background: #fff;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 190px;
+            cursor: pointer; /* Menunjukkan bisa diklik */
+        }
+
+        .img-wrapper img {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 15px;
+            display: block;
+            pointer-events: none; /* Mencegah drag image default browser */
+        }
+
+        .card-body {
+            padding: 10px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-name {
+            font-size: 0.85rem;
+            line-height: 1.2;
+            height: 34px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            margin-bottom: 5px;
+            color: var(--text-black);
+        }
+
+        .tags {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 5px;
+        }
+        .tag-mall {
+            background: #d0011b;
+            color: white;
+            font-size: 0.6rem;
+            padding: 1px 4px;
+            border-radius: 2px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .tag-star {
+            color: #ee4d2d;
+            font-size: 0.6rem;
+            border: 1px solid #ee4d2d;
+            padding: 0 3px;
+            border-radius: 2px;
+            font-weight: 500;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 2px;
+            margin-top: auto;
+        }
+
+        .currency { font-size: 0.7rem; color: var(--price-red); }
+        .current-price { font-size: 1rem; color: var(--price-red); font-weight: 700; }
+        .old-price { font-size: 0.75rem; text-decoration: line-through; color: var(--text-gray); margin-left: 5px; }
+
+        /* Stock Bar */
+        .stock-container {
+            margin-top: 10px;
+            position: relative;
+            height: 16px;
+        }
+        .progress-bg {
+            background: #ffbda6;
+            height: 14px;
+            border-radius: 7px;
+            overflow: hidden;
+            border: 1px solid #ffbda6;
+        }
+        .progress-fill {
+            background: var(--shopee-orange);
+            height: 100%;
+            width: 80%;
+        }
+        .stock-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.6rem;
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            white-space: nowrap;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+        }
+
+        /* BUY BUTTON */
+        .btn-buy {
+            background: var(--shopee-orange);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            border-radius: 2px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-transform: uppercase;
+        }
+        .btn-buy:hover {
+            background: var(--shopee-dark);
+        }
+
+        /* Bottom Nav Mobile */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            z-index: 999;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+        }
+        .nav-item {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #777;
+            cursor: pointer;
+        }
+        .nav-item.active { color: var(--shopee-orange); }
+        .nav-icon { font-size: 1.2rem; display: block; margin-bottom: 2px; }
+
+        @media (min-width: 768px) {
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+            .bottom-nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Flash Sale Banner -->
+<div class="fs-banner">
+    <div class="fs-title">
+    <div style="display: flex; flex-direction: column;">
+        <span>FLASH SALE (90%)</span>
+        <span style="font-size: 0.8em; margin-top: 5px;">PROMO TERBATAS !!!</span>
+    </div>
+        <div class="countdown">
+            <div class="time-box" id="h">02</div>:
+            <div class="time-box" id="m">15</div>:
+            <div class="time-box" id="s">43</div>
+          
+        </div>
+    </div>
+    
+</div>
+
+<div class="container">
+
+    <!-- Helper Function for Redirect -->
+    <script>
+        function goToOffer() {
+            window.location.href = "https://www.effectivecpmnetwork.com/m48ukcbw2q?key=81f55ba90a003860f0bd7b5a9d22b1d0";
+        }
+    </script>
+
+    <div class="product-grid">
+        <!-- Product 1 -->
+        <div class="card">
+            <div class="discount-badge">90%<br>OFF</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjjxLq_-zNmpofsO-Si_Y9t_9W9ljfA6Nk7Q-84arxZ4wNch7xhl58kfePxyrgGH9RKgzQBJwLJmP4NlbsTwoAlnZqQaQtIlZsikV83jhG5qT0dMx8VMQh1NF3GAQ2XIyxj_7f5O3ljh5jIjLVdf4YLLWYFaJmX-rImx9AQNC4jFj8duUM4NqayHw46hSEx/s1600/iphone-17-pro-max-cosmic-orange.png" alt="iPhone 17 Pro Max">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Apple iPhone 17 Pro Max 256GB</div>
+                <div class="tags">
+                    <span class="tag-mall">Mall</span>
+                    <span class="tag-star">Star+</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency">Rp</span>
+                    <span class="current-price">2.699.000</span>
+                </div>
+                <div class="old-price">Rp 26.999.000</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 98%;"></div>
+                    </div>
+                    <div class="stock-text">TERJUAL 98%</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">BELI SEKARANG</button>
+            </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="card">
+            <div class="discount-badge">90%<br>OFF</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhaaMbYZ-qR05cOYXiQV9LshGL3sFdGGmP0Le-hsnDwBIaHbEa7ChEdaUWVm4jGicyY5E2_TXZRpdcPDjZpIgOU4dIJ7Kw8YXzXETb9xBMdlh-TBBYSRXYz8dqe5XZ1y1GyARaJMmlTbvw3r94pxOcHq9Cr3NStjcbSAtGpieo39zeblziIx4W2zTzou1Nc/s1600/iphone-17-pro-silver.png" alt="iPhone 17 Pro">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Apple iPhone 17 Pro 128GB</div>
+                <div class="tags">
+                    <span class="tag-mall">Mall</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency">Rp</span>
+                    <span class="current-price">2.399.000</span>
+                </div>
+                <div class="old-price">Rp 23.999.000</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 95%;"></div>
+                    </div>
+                    <div class="stock-text">TERJUAL 95%</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">BELI SEKARANG</button>
+            </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="card">
+            <div class="discount-badge">90%<br>OFF</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNktkqPmkww7YagUeRzaeOnbNEL6o9MiTDXPga5AAZUxMBGQ3SDpuTNjvnbdp8tGrNMD2gWMuImnIeswucAG1r-C6hQdg4AxefOUsrKD9cQsrw0W1-o597BcjXualVuIt4YuFJgHe1i1NAhvYyaREjfeFqUsMvqcnO3qYBX-34XwD64JvBIWhpVvK-p52D/s1600/Apple-iPhone-16-Pro-Max-HK-White-Titanium-1.png" alt="iPhone 16 Pro Max">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Apple iPhone 16 Pro Max 256GB</div>
+                <div class="tags">
+                    <span class="tag-mall">Mall</span>
+                    <span class="tag-star">Star+</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency">Rp</span>
+                    <span class="current-price">2.499.000</span>
+                </div>
+                <div class="old-price">Rp 24.999.000</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 99%;"></div>
+                    </div>
+                    <div class="stock-text">HAMPIR HABIS</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">BELI SEKARANG</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="product-grid">
+        <div class="card">
+            <div class="discount-badge">90%<br>OFF</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiETb-xBEgGgVLSsrhq2C9Dgv9JYBWT7Qlh4uTdx8_JITqrE6fXDHf-8M6934XD-elI-5Sx1QsLGDJUglnMyHn5QgzNn9wqkB0f2mP4Qca4DyWl02hxBD1MYk02fmCruFuW1_0ugvno9KsCm0ITwL270ycWuqb4p-Rpwi782k4_74cfJxbq9fdQHRrqXzkZ/s1600/S25ULTRATITANIUMWHITESILVER_800x.webp" alt="S25 Ultra">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Samsung Galaxy S25 Ultra 5G 12/256GB</div>
+                <div class="tags">
+                    <span class="tag-mall">Mall</span>
+                    <span class="tag-star">Star+</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency">Rp</span>
+                    <span class="current-price">2.399.000</span>
+                </div>
+                <div class="old-price">Rp 23.999.000</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 92%;"></div>
+                    </div>
+                    <div class="stock-text">TERJUAL 92%</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">BELI SEKARANG</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="discount-badge">90%<br>OFF</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg8OgSL6eLOkbMC8yDy4Ay-eMxQERogMNrP_iIMImclWsQPQbeiLY4Bds3V8k_jHZMV3p4YCN0oAxuyzPt-Ml0EOJUULxUVugt5-ZrY8Y2vAFpgq9yYY_jBVCtNE2K0pR1CcsBVaUK-Ms4_o3tCrRRxzg1iTxeB_GJ5j-NKbPy6pKEStamE7bp47QMv5IrW/s1600/Samsung-Galaxy-Z-Fold-7-Silver-Shadow-1.png" alt="Z Fold 7">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Samsung Galaxy Z Fold 7 256GB</div>
+                <div class="tags">
+                    <span class="tag-mall">Mall</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency">Rp</span>
+                    <span class="current-price">2.999.000</span>
+                </div>
+                <div class="old-price">Rp 29.999.000</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 88%;"></div>
+                    </div>
+                    <div class="stock-text">TERJUAL 88%</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">BELI SEKARANG</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="discount-badge">90%<br>OFF</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhGIo0Tq6sqPuSuDJeciVZeYYX4J09xfNxyq0rFfcFb44prfKs7s_foktIZueaRLJPGgsZWGwTOwuSFGn247aptNSepMYyRujoyZ9358rlPjQCIYXznMQwOZ9Ook-JxRN999KGkJ_B6_dQbagCduTM-DvYH1lLmdu2vEodRANcTceU2FSRYFigzaFbB1pGC/s1600/Samsung-S25-Plus-Silver-Shadow-1.png" alt="S25 Plus">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Samsung Galaxy S25+ 5G 12/256GB</div>
+                <div class="tags">
+                    <span class="tag-star">Star</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency">Rp</span>
+                    <span class="current-price">1.999.000</span>
+                </div>
+                <div class="old-price">Rp 19.999.000</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 96%;"></div>
+                    </div>
+                    <div class="stock-text">TERJUAL 96%</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">BELI SEKARANG</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="product-grid">
+        <div class="card">
+            <div class="discount-badge">90%<br>OFF</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhN72DMbP5SA-IeNU6ioVvVH7x1whdoceRec8ZAXhg22xDfMg7wiO9CI8dXq8fiQnx5dP404b5u7JV5qCHh6CYm6Ix20FqZ0_3rN9vIa6uo9vFdhYD5Nn2fnKmyyz8iSRTxI6QuA0K1-Oi1dkb0mNVMFcS9XEAJ5S3dcRE3Jaoh6HpaibZaETU5CHtzlKEN/s1600/vivo%20x200%20ultra.jpeg" alt="X200 Ultra">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Vivo X200 Ultra 5G 16/512GB</div>
+                <div class="tags">
+                    <span class="tag-mall">Mall</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency">Rp</span>
+                    <span class="current-price">1.899.000</span>
+                </div>
+                <div class="old-price">Rp 18.999.000</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 94%;"></div>
+                    </div>
+                    <div class="stock-text">TERJUAL 94%</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">BELI SEKARANG</button>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="discount-badge">90%<br>OFF</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhgI01lgchnpZeTQq6BW4o9ROd2n5FYxaxISoe7fX_PexsJOQiQzvpfOMOb4reXQ9dekQDDkUjGFpn4PvIDDtS8fQGlv-ocVRcMnunVjOLInOgl7qfo9KBh_TeD83AMUIuQRGUsPGUolPHOx_30sUk0pYM4GNzmb4IjMTZbQyLVUxczjODL_m9cZG9Z7tj0/s1600/vivo%20x%20fold%205.webp" alt="X Fold 5">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Vivo X Fold 5 12/256GB</div>
+                <div class="tags">
+                    <span class="tag-star">Star+</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency">Rp</span>
+                    <span class="current-price">2.599.000</span>
+                </div>
+                <div class="old-price">Rp 25.999.000</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 85%;"></div>
+                    </div>
+                    <div class="stock-text">TERJUAL 85%</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">BELI SEKARANG</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="discount-badge">90%<br>OFF</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_CpNS1SIAQ0NRwDr1fyUyEfh4rHAqc924KG_TbMskE-76KIbhjR7gBueNC5KVgZ_CtXaCXhgs3yP4yWlqfunm4nbG2GJqaTtCrfywf30zR5GCbhtGFPPTRLnVCIQa6O5V2L7Z9RQF3UsBLa0FF0kTxzJwXH705BjOy51-x4COID6rLcpl9gEFAHjvzeLp/s1600/vivo%20v50.png" alt="V50 Pro">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Vivo V50 Pro 5G 12/256GB</div>
+                <div class="tags">
+                    <span class="tag-mall">Mall</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency">Rp</span>
+                    <span class="current-price">999.000</span>
+                </div>
+                <div class="old-price">Rp 9.999.000</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 99%;"></div>
+                    </div>
+                    <div class="stock-text">HAMPIR HABIS</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">BELI SEKARANG</button>
+            </div>
+        </div>
+    </div>
+
+     
+    <div class="product-grid">
+        <div class="card">
+            <div class="discount-badge">90%<br>OFF</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhOYBPfE_v3ucRp7IolbVOKXatbyw73XzDq_PVuN2Z9gD8AOvw_56N2d0hCYyvyVWZJe9Z4yc0RRlfRnIbHj-COKSednkHFj3FhmpAr5f8nQusQw23lrC3Xn6ZcPq4JoSbHFqhntYiAUYB1R7L0ifZ914LCpHblTJvAjdoKF0_wifemOXtoz89YrMcxOvZi/s1600/oppo%20find%20x8%20ultra.jpeg" alt="Find X8 Ultra">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Oppo Find X8 Ultra 16/512GB</div>
+                <div class="tags">
+                    <span class="tag-mall">Mall</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency">Rp</span>
+                    <span class="current-price">1.999.000</span>
+                </div>
+                <div class="old-price">Rp 19.999.000</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 91%;"></div>
+                    </div>
+                    <div class="stock-text">TERJUAL 91%</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">BELI SEKARANG</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="discount-badge">90%<br>OFF</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh7BjoYsyk4ESHFuAIen1eW6dFs9OdVhRgVFxcnwvL36XR1n6hJ9jykWUUFNumfV-vVKuyVhXRXfmcaAbFmZ6iK3Qbd7O6lYWt4n4E5jmdyEviZRvW91DCkasR9ydkjxGe0ZY7ddPCDnuNWX-NNPFLYm8FYqU6dDrxjhioIBfP8CecOiUhlDS5gv8xLalIj/s1600/oppo%20find%20n5.jpeg" alt="Find N5">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Oppo Find N5 12/256GB</div>
+                <div class="tags">
+                    <span class="tag-star">Star+</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency">Rp</span>
+                    <span class="current-price">2.499.000</span>
+                </div>
+                <div class="old-price">Rp 24.999.000</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 80%;"></div>
+                    </div>
+                    <div class="stock-text">TERJUAL 80%</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">BELI SEKARANG</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="discount-badge">90%<br>OFF</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhtaSRifk5ZHc8LE2Wtmz4aFM_0TrHk1s0Fvjr-b-k-OEzyTJqXydyZDNsZPPvrfZCKSzWs8uttFhBAsILNV9ecpkgl3UJaCSQ920OGF_c7h3fPcytExZZk4sEvHEqM-Wyg3d-Rs5rks6pKc6bE5NeVtsfJwoKX_NW2W1jAIRpfNFr7_MoayKD26H2iyNUc/s1600/Oppo-Reno-14-Pro-Titanium-Grey-1.png-.png" alt="Reno 14 Pro+">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Oppo Reno 14 Pro+ 5G 12/256GB</div>
+                <div class="tags">
+                    <span class="tag-mall">Mall</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency">Rp</span>
+                    <span class="current-price">1.099.000</span>
+                </div>
+                <div class="old-price">Rp 10.999.000</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 97%;"></div>
+                    </div>
+                    <div class="stock-text">TERJUAL 97%</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">BELI SEKARANG</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="product-grid">
+        <div class="card">
+            <div class="discount-badge">90%<br>OFF</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggfIu8bK13nOD7vv02mk2XhI4i4U_RN-9gUgwrnpNJ9DVqg95xG0DSoeul0HxCCElHfHiYrkKRas6QdLrBgeQ1Vlyu3BhCtrI0rmU7nEOpTtj_I-SxChdCjVlfg2qunPGRDwNhhEN5enp-emSNTEfnhC27HcsTwuCK6X6bLwaL_WhMQrt8dw7Y9g3tuGCF/s1600/viaomi%2015%20ultra.webp" alt="Xiaomi 15 Ultra">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Xiaomi 15 Ultra 16/512GB</div>
+                <div class="tags">
+                    <span class="tag-mall">Mall</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency">Rp</span>
+                    <span class="current-price">2.099.000</span>
+                </div>
+                <div class="old-price">Rp 20.999.000</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 93%;"></div>
+                    </div>
+                    <div class="stock-text">TERJUAL 93%</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">BELI SEKARANG</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="discount-badge">90%<br>OFF</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHbyoYc8QvnXeBqhw5wi2ypbHkELBtdnas6EqsGmdeSbRQBUA3e5ExkBMeWONQrnmr8j1qAUVKxTqhZoHuQt9_DCjCucKHsIrbzuTUCXU_3a0P2q6pTqTnsl03L9IyUVXuiV0h04lqy9Ib3duNix5tMxrad1RMDwK01KM0KmCtfJtuU_ofn-SiWvrrS2xd/s1600/Xiaomi-Poco-F7-Ultra-Dual-sim-5G-_12GB-ram_-Global-Xiaomi-167998093.webp" alt="Poco F7 Ultra">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Poco F7 Ultra 12/256GB</div>
+                <div class="tags">
+                    <span class="tag-star">Star+</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency">Rp</span>
+                    <span class="current-price">999.000</span>
+                </div>
+                <div class="old-price">Rp 9.999.000</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 99%;"></div>
+                    </div>
+                    <div class="stock-text">HAMPIR HABIS</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">BELI SEKARANG</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="discount-badge">90%<br>OFF</div>
+            <div class="img-wrapper" onclick="goToOffer()">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi2sU6UsljALU8yVtHzBx3KNKEeyH-1cd-ahj6BBXILJCR3okH1RAQb09HW_QBMDokjqi91BR_8qClYPgyao0N8XsvkREzek6us9IyNqr2oGfjvq_eFCPcqxVVAn91TO7epsp8s__x1dvj0JTLVUje7hnuhi2bPxaV18H1ikMwGuV-Dc3RM5LahuB-wo6Oi/s1600/Redmi%20k90%20pro%20max.webp" alt="Redmi K90 Pro">
+            </div>
+            <div class="card-body">
+                <div class="product-name">Redmi K90 Pro 12/256GB</div>
+                <div class="tags">
+                    <span class="tag-mall">Mall</span>
+                </div>
+                <div class="price-row">
+                    <span class="currency">Rp</span>
+                    <span class="current-price">899.000</span>
+                </div>
+                <div class="old-price">Rp 8.999.000</div>
+                <div class="stock-container">
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: 98%;"></div>
+                    </div>
+                    <div class="stock-text">TERJUAL 98%</div>
+                </div>
+                <button class="btn-buy" onclick="goToOffer()">BELI SEKARANG</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Simple Countdown Logic
+    function startTimer(duration, displayH, displayM, displayS) {
+        var timer = duration, hours, minutes, seconds;
+        setInterval(function () {
+            hours = parseInt(timer / 3600, 10);
+            minutes = parseInt((timer % 3600) / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            hours = hours < 10 ? "0" + hours : hours;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            displayH.textContent = hours;
+            displayM.textContent = minutes;
+            displayS.textContent = seconds;
+
+            if (--timer < 0) {
+                timer = duration;
+            }
+        }, 1000);
+    }
+
+    window.onload = function () {
+        var fiveHours = 60 * 60 * 5;
+        var h = document.querySelector('#h');
+        var m = document.querySelector('#m');
+        var s = document.querySelector('#s');
+        startTimer(fiveHours, h, m, s);
+    };
+</script>
+
+</body>
+</html>
