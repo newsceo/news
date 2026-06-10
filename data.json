@@ -1,39 +1,26 @@
-{
-  "site": {
-    "name": "Celebrity Top 1",
-    "tagline": "Curated celebrity news with cinematic depth.",
-    "url": "index.html"
-  },
-  "articles": [
+[
     {
-      "id": 1,
-      "title": "Sydney Sweeney & Zendaya: The Feud Rumors",
-      "slug": "sydney-zendaya",
-      "url": "posts/sydney-zendaya.html",
-      "tag": "Breaking News",
-      "description": "Controversial star sparks rumors after excluding co-star from Season 3 photos...",
-      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCBuQhJxBr5Ui3AnOQnMHZ04uq0ZHj0EqpJHKtE6UGiTGz1ZMWUS4dCQore1apsMKx7zRDMf_EBV6uQ_1PX1n4oCcSNPyErpvo1g9lH_2x8z8iZocIDubXlVlOT2ymq2YUf_RxiLcz-5CnUmsiiSiUldSc1va_vVx_ojGRZJsk6D5CKK1ij2QEqcW2btY/s1600/zen.webp",
-      "alt": "Sydney Sweeney"
+        "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCBuQhJxBr5Ui3AnOQnMHZ04uq0ZHj0EqpJHKtE6UGiTGz1ZMWUS4dCQore1apsMKx7zRDMf_EBV6uQ_1PX1n4oCcSNPyErpvo1g9lH_2x8z8iZocIDubXlVlOT2ymq2YUf_RxiLcz-5CnUmsiiSiUldSc1va_vVx_ojGRZJsk6D5CKK1ij2QEqcW2btY/s1600/zen.webp",
+        "alt": "Sydney Sweeney",
+        "tag": "Breaking News",
+        "title": "Sydney Sweeney & Zendaya: The Feud Rumors",
+        "link": "posts/zendaya.html",
+        "description": "Controversial star sparks rumors after excluding co-star from Season 3 photos..."
     },
     {
-      "id": 2,
-      "title": "Top Fashion Trends 2026",
-      "slug": "top-fashion-trends-2026",
-      "url": "#",
-      "tag": "Fashion",
-      "description": "Exploring the latest styles from Paris and Milan fashion weeks...",
-      "image": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800",
-      "alt": "Fashion"
+        "image": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800",
+        "alt": "promo",
+        "tag": "promo",
+        "title": "amazon promo 2026",
+        "link": "posts/amazon.html",
+        "description": "Amazon promo 90% OFF..."
     },
     {
-      "id": 3,
-      "title": "Behind the Scenes: Global Tour",
-      "slug": "behind-the-scenes-global-tour",
-      "url": "#",
-      "tag": "Music",
-      "description": "Exclusive look at the biggest concert production of the year...",
-      "image": "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=800",
-      "alt": "Music"
+        "image": "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=800",
+        "alt": "Music",
+        "tag": "Music",
+        "title": "Behind the Scenes: Global Tour",
+        "link": "#",
+        "description": "Exclusive look at the biggest concert production of the year..."
     }
-  ]
-}
+]
