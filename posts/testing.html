@@ -1,0 +1,351 @@
+
+html_code = '''<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sydney Sweeney & Zendaya - Euphoria Drama</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-text">ENTERTAINMENT</span>
+                <span class="logo-dot">.</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#story">Story</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#timeline">Timeline</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-icon">★</span>
+                <span>EXCLUSIVE</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-line">Sydney Sweeney</span>
+                <span class="title-divider"></span>
+                <span class="title-line">vs Zendaya</span>
+            </h1>
+            <p class="hero-subtitle">Rumor perseteruan pahit di balik layar Euphoria Musim 3</p>
+            <div class="scroll-indicator">
+                <span>Scroll Down</span>
+                <div class="scroll-arrow"></div>
+            </div>
+        </div>
+        <div class="hero-particles" id="particles"></div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="content-wrapper">
+        <!-- Featured Story -->
+        <section class="featured-story" id="story">
+            <div class="container">
+                <div class="story-header">
+                    <div class="category-tag">
+                        <span>CELEBRITY NEWS</span>
+                    </div>
+                    <h2 class="story-title">Sydney Sweeney Memicu Rumor Perseteruan dengan Zendaya</h2>
+                    <div class="story-meta">
+                        <span class="date">June 10, 2026</span>
+                        <span class="separator">•</span>
+                        <span class="read-time">5 min read</span>
+                    </div>
+                </div>
+
+                <div class="story-content">
+                    <p class="lead-text">
+                        Bintang kontroversial Sydney Sweeney telah memicu desas-desus tentang dugaan 'perseteruan pahit' dengan lawan mainnya di Euphoria, Zendaya.
+                    </p>
+
+                    <div class="highlight-box">
+                        <div class="highlight-icon">⚡</div>
+                        <p class="highlight-text">
+                            Sydney Sweeney terus memicu rumor perseteruan dengan lawan mainnya di Euphoria, Zendaya dengan menolaknya dari kumpulan foto Musim 3.
+                        </p>
+                    </div>
+
+                    <p>
+                        Setelah final musim hari Minggu, Sweeney membagikan beberapa foto di balik layar, yang menampilkan beberapa anggota pemeran utamanya.
+                    </p>
+
+                    <p>
+                        Sweeney berpose untuk foto dengan Jacob Elordi (Nate Jacobs), Alexa Demie (Maddy Perez), Maude Apatow (Lexi Howard) dan bahkan membagikan foto mendiang Eric Dane (Cal Jacobs)— tetapi Zendaya (Rue Bennett) terlihat hilang.
+                    </p>
+
+                    <blockquote class="quote-block">
+                        <div class="quote-mark">"</div>
+                        <p class="quote-text">Itu disebut ... akting</p>
+                        <cite class="quote-author">— Sydney Sweeney, memberi keterangan pada foto-foto itu, tampaknya membalas kritik perannya yang cabul sebagai Cassie Howard</cite>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Gallery -->
+        <section class="image-gallery" id="gallery">
+            <div class="container">
+                <div class="gallery-header">
+                    <h3 class="gallery-title">Visual Stories</h3>
+                    <p class="gallery-subtitle">Behind the scenes moments</p>
+                </div>
+
+                <div class="gallery-grid">
+                    <div class="gallery-item large" data-aos="fade-up">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCBuQhJxBr5Ui3AnOQnMHZ04uq0ZHj0EqpJHKtE6UGiTGz1ZMWUS4dCQore1apsMKx7zRDMf_EBV6uQ_1PX1n4oCcSNPyErpvo1g9lH_2x8z8iZocIDubXlVlOT2ymq2YUf_RxiLcz-5CnUmsiiSiUldSc1va_vVx_ojGRZJsk6D5CKK1ij2QEqcW2btY/s1600/zen.webp" 
+                             alt="Zendaya" loading="lazy">
+                        <div class="image-overlay">
+                            <div class="overlay-content">
+                                <span class="image-caption">Zendaya</span>
+                                <span class="image-role">Rue Bennett</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg1vxHKZORDS2EUzvieNF0KSVKpNHmNkIOfXaaktJ8tzbLAqVKU4U5wrUvvSsWNSXgSqWEQrshdQqzlsM57JLuO2x2UsJMQOIUi8cy1CcIP4PgsxjEcppI7ft_Xwjwpzg3jTP4817ShXOYsqpnKMzWHhTnKU2abpybkJgJ7axxo9l_34bFhe6jiWhwmjZE/s1600/zend.webp" 
+                             alt="Zendaya Hollywood" loading="lazy">
+                        <div class="image-overlay">
+                            <div class="overlay-content">
+                                <span class="image-caption">Bintang Hollywood</span>
+                                <span class="image-role">Missing from BTS photos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item wide" data-aos="fade-up" data-aos-delay="200">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEipfXbpsGfyHLvGnxyyppJx8mVj4C1LyUEqwshD88wly0gd8iW_Qe_v2BgX9SyEkDkHVGR58wjYlOdjOjBK2HeKN6uWlvCaeKsAtqyn5h6YxBwEFtDwX689ahSdz4xybo2cIk26ZggTI0UoiV9cL1Zskiy1TLMzN_Jb0YeTvwzRXWsp-izMPtwuJGlsDPw/s1600/euphoria.webp" 
+                             alt="Euphoria Cast" loading="lazy">
+                        <div class="image-overlay">
+                            <div class="overlay-content">
+                                <span class="image-caption">Hunter Schafer, Alexa Demie, Sydney Sweeney dan Maude Apatow</span>
+                                <span class="image-role">Pemutaran Perdana Euphoria - April</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fan Reactions -->
+        <section class="reactions-section">
+            <div class="container">
+                <div class="section-header">
+                    <h3 class="section-title">Fan Reactions</h3>
+                    <div class="title-underline"></div>
+                </div>
+
+                <div class="reactions-grid">
+                    <div class="reaction-card">
+                        <div class="reaction-icon">💬</div>
+                        <p class="reaction-text">"Tidak ada foto dalam tayangan slide ini w zendaya saya bingung ..."</p>
+                        <span class="reaction-source">— Fan Comment</span>
+                    </div>
+
+                    <div class="reaction-card">
+                        <div class="reaction-icon">🤔</div>
+                        <p class="reaction-text">"Zendaya tidak menyukai [Sweeney] karena nilai-nilainya"</p>
+                        <span class="reaction-source">— Fan Theory</span>
+                    </div>
+
+                    <div class="reaction-card">
+                        <div class="reaction-icon">⚖️</div>
+                        <p class="reaction-text">"Sweeney dan Zendaya hampir tidak memiliki adegan bersama"</p>
+                        <span class="reaction-source">— Counter Argument</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline -->
+        <section class="timeline-section" id="timeline">
+            <div class="container">
+                <div class="section-header">
+                    <h3 class="section-title">Timeline of Events</h3>
+                    <div class="title-underline"></div>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">November 2025</span>
+                            <h4 class="timeline-title">Daily Mail Report</h4>
+                            <p class="timeline-text">
+                                Daily Mail melaporkan bahwa Sweeney dan Zendaya "terkunci dalam perseteruan pahit" yang berasal dari pandangan politik mereka yang berbeda.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">March 2026</span>
+                            <h4 class="timeline-title">Cast Photoshoot Absence</h4>
+                            <p class="timeline-text">
+                                Ketika Sweeney absen dari pemotretan pemeran Euphoria, ini menambah lebih banyak bahan bakar pada rumor. Namun, Page Six diberitahu bahwa syuting yang dimaksud difilmkan ketika Sweeney sedang syuting adegan.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">April 2026</span>
+                            <h4 class="timeline-title">Premiere Event</h4>
+                            <p class="timeline-text">
+                                Para wanita tampaknya menghindari satu sama lain di pemutaran perdana musim. "Selama tur pers, interaksi apa pun antara pasangan itu dijaga seminimal mungkin."
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker active"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">June 2026</span>
+                            <h4 class="timeline-title">Season Finale Aftermath</h4>
+                            <p class="timeline-text">
+                                Sweeney membagikan foto BTS tanpa Zendaya, memicu kembali spekulasi tentang hubungan mereka.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Insider Claims -->
+        <section class="insider-section">
+            <div class="container">
+                <div class="insider-card">
+                    <div class="insider-badge">
+                        <span>INSIDER SOURCE</span>
+                    </div>
+                    <h3 class="insider-title">What Insiders Are Saying</h3>
+                    
+                    <div class="insider-content">
+                        <div class="claim-item">
+                            <div class="claim-number">01</div>
+                            <div class="claim-text">
+                                <p>"Bos 'Euphoria' terlalu sadar bahwa pasangan itu tidak akur. Ada ketegangan di masa lalu ... Jalan mereka hampir tidak berpapasan selama pembuatan Musim 3."</p>
+                            </div>
+                        </div>
+
+                        <div class="claim-item">
+                            <div class="claim-number">02</div>
+                            <div class="claim-text">
+                                <p>"Ada larangan total bagi wartawan yang bertanya tentang ketegangan antara Zendaya dan Sydney."</p>
+                            </div>
+                        </div>
+
+                        <div class="claim-item">
+                            <div class="claim-number">03</div>
+                            <div class="claim-text">
+                                <p>Perselisihan mereka berasal dari Sweeney yang memiliki "kepanasan" untuk tunangan Zendaya, Tom Holland, dan "menggoda dia" ketika dia datang ke lokasi syuting.</p>
+                            </div>
+                        </div>
+
+                        <div class="claim-item">
+                            <div class="claim-number">04</div>
+                            <div class="claim-text">
+                                <p>"Ini sedikit sakit kepala karena Zendaya tidak ingin dikaitkan dengan pendukung Trump."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Background Context -->
+        <section class="context-section">
+            <div class="container">
+                <div class="context-grid">
+                    <div class="context-card">
+                        <div class="context-icon">🎭</div>
+                        <h4>Political Divide</h4>
+                        <p>Sweeney adalah pemilih Partai Republik yang terdaftar dan menyebabkan kontroversi dengan kampanye denim American Eagle-nya, yang dituduh beberapa kritikus sebagai propaganda Nazi dengan nada rasis.</p>
+                    </div>
+
+                    <div class="context-card">
+                        <div class="context-icon">📸</div>
+                        <h4>Media Strategy</h4>
+                        <p>Menurut outlet tersebut, Zendaya menolak untuk melakukan pers dengan Sweeney untuk "Euphoria" Musim 3, dan keduanya diduga menolak untuk berdiri bersebelahan di acara.</p>
+                    </div>
+
+                    <div class="context-card">
+                        <div class="context-icon">💔</div>
+                        <h4>Personal Tension</h4>
+                        <p>Orang dalam mengklaim bahwa perselisihan mereka berasal dari ketegangan pribadi terkait Tom Holland, tunangan Zendaya.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-text">ENTERTAINMENT</span>
+                        <span class="logo-dot">.</span>
+                    </div>
+                    <p class="footer-tagline">Premium Entertainment News</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h5>Quick Links</h5>
+                        <a href="#home">Home</a>
+                        <a href="#story">Story</a>
+                        <a href="#gallery">Gallery</a>
+                        <a href="#timeline">Timeline</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h5>Follow Us</h5>
+                        <a href="#">Instagram</a>
+                        <a href="#">Twitter</a>
+                        <a href="#">Facebook</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Entertainment News. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>'''
+
+with open('index.html', 'w', encoding='utf-8') as f:
+    f.write(html_code)
+
+print("HTML file created successfully!")
+
+ # Result 
+HTML file created successfully!
