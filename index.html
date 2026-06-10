@@ -34,34 +34,37 @@
         <p>&copy; 2026 Celebrity Top 1. All rights reserved.</p>
     </footer>
 
-    <!-- Load data posts -->
-    <script src="data.js"></script>
-    <!-- Generate kartu postingan -->
+    <!-- Generate kartu postingan dari data.json -->
     <script>
-        // Render semua postingan dari data.js ke dalam postGrid
-        const postGrid = document.getElementById('postGrid');
+        // Render semua postingan dari data.json ke dalam postGrid
+        fetch('data.json')
+            .then(response => response.json())
+            .then(postsData => {
+                const postGrid = document.getElementById('postGrid');
 
-        postsData.forEach(post => {
-            // Buat elemen <article>
-            const article = document.createElement('article');
-            article.className = 'card';
+                postsData.forEach(post => {
+                    // Buat elemen <article>
+                    const article = document.createElement('article');
+                    article.className = 'card';
 
-            // Isi konten artikel
-            article.innerHTML = `
-                <div class="card-image">
-                    <img src="${post.image}" alt="${post.alt}">
-                </div>
-                <div class="card-content">
-                    <span class="tag">${post.tag}</span>
-                    <h2><a href="${post.link}">${post.title}</a></h2>
-                    <p>${post.description}</p>
-                    <a href="${post.link}" class="read-btn">Read Article →</a>
-                </div>
-            `;
+                    // Isi konten artikel
+                    article.innerHTML = `
+                        <div class="card-image">
+                            <img src="${post.image}" alt="${post.alt}">
+                        </div>
+                        <div class="card-content">
+                            <span class="tag">${post.tag}</span>
+                            <h2><a href="${post.link}">${post.title}</a></h2>
+                            <p>${post.description}</p>
+                            <a href="${post.link}" class="read-btn">Read Article →</a>
+                        </div>
+                    `;
 
-            // Masukkan ke grid
-            postGrid.appendChild(article);
-        });
+                    // Masukkan ke grid
+                    postGrid.appendChild(article);
+                });
+            })
+            .catch(error => console.error('Error loading data.json:', error));
     </script>
 
 </body>
