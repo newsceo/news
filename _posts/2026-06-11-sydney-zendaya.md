@@ -1,5 +1,5 @@
 ---
-layout: posts
+layout: post
 title: "Sydney Sweeney & Zendaya: The Feud Rumors"
 date: 2026-06-11
 category: Breaking News
