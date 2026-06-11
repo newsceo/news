@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Celebrity Top 1 - Ultra Premium Glass Experience</title>
+    <title>Celebrity Top 1 - Infinite Panorama Experience</title>
     
     <!-- Font Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,33 +33,44 @@
             min-height: 100vh;
         }
 
-        /* --- ANIMATED BACKGROUND CONTAINER --- */
+        /* --- INFINITE SLIDING BACKGROUND --- */
         .background-art {
-            position: fixed; top: -10%; left: -10%; width: 120%; height: 120%; z-index: -2;
-            background: linear-gradient(to bottom, #2b1055, #7597de);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
             overflow: hidden;
-            will-change: transform; /* Optimasi performa GPU */
-            transition: transform 0.1s linear; /* Smooth scroll sync */
+            background: linear-gradient(to bottom, #1a0b2e 0%, #2b1055 50%, #7597de 100%);
         }
-        
-        .sun {
-            position: absolute; bottom: 30%; left: 50%; transform: translateX(-50%);
-            width: 150px; height: 150px; background: linear-gradient(to top, #ff6b35, #ffd700);
-            border-radius: 50%; box-shadow: 0 0 60px #ff6b35, 0 0 100px #ff4500; opacity: 0.9;
+
+        /* Container untuk gambar yang digeser */
+        .panorama-wrapper {
+            position: absolute; top: 0; left: 0; height: 100%;
+            width: 200%; /* Lebar 2x viewport untuk seamless loop */
+            display: flex;
             will-change: transform;
         }
-        
-        .mountain {
-            position: absolute; bottom: 0; width: 100%; height: 40%;
-            background: linear-gradient(to top, #0f0c29, #302b63);
-            clip-path: polygon(0% 100%, 0% 20%, 20% 60%, 40% 30%, 60% 70%, 80% 40%, 100% 80%, 100% 100%);
-            z-index: -1; opacity: 0.8;
-            will-change: transform;
+
+        .panorama-slide {
+            width: 50%; /* Masing-masing slide = 100% viewport */
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.7) contrast(1.2) saturate(1.3);
         }
-        .mountain:nth-child(2) {
-            height: 50%; background: linear-gradient(to top, #000000, #24243e);
-            clip-path: polygon(0% 100%, 15% 40%, 35% 80%, 50% 30%, 70% 60%, 85% 20%, 100% 100%);
-            z-index: 0; opacity: 1;
+
+        /* Animasi geser tanpa henti */
+        @keyframes slideLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Geser sejauh 1 slide (50% dari wrapper) */
+        }
+
+        .panorama-wrapper {
+            animation: slideLeft 60s linear infinite; /* 60 detik per putaran penuh */
+        }
+
+        /* Overlay gradient agar teks tetap terbaca */
+        .background-overlay {
+            position: absolute; inset: 0; z-index: -1;
+            background: radial-gradient(circle at center, transparent 0%, rgba(15, 12, 41, 0.8) 100%);
         }
 
         #particle-canvas {
@@ -178,12 +189,15 @@
 </head>
 <body>
 
-    <!-- Animated Parallax Background -->
-    <div class="background-art" id="parallax-bg">
-        <div class="sun"></div>
-        <div class="mountain"></div>
-        <div class="mountain"></div>
+    <!-- Infinite Sliding Background -->
+    <div class="background-art">
+        <div class="panorama-wrapper">
+            <div class="panorama-slide"></div>
+            <div class="panorama-slide"></div> <!-- Duplikat untuk seamless loop -->
+        </div>
+        <div class="background-overlay"></div>
     </div>
+    
     <canvas id="particle-canvas"></canvas>
 
     <!-- Progress Bar -->
@@ -212,31 +226,7 @@
     </footer>
 
     <script>
-        // --- 1. PARALLAX SCROLL BACKGROUND ANIMATION ---
-        const bgArt = document.getElementById('parallax-bg');
-        let ticking = false;
-
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const scrolled = window.pageYOffset || document.documentElement.scrollTop;
-                    
-                    // Efek Zoom Out: Scale berkurang saat scroll ke bawah
-                    // Mulai dari scale 1.2, turun perlahan hingga 0.8 di posisi tertentu
-                    const zoomFactor = Math.max(0.8, 1.2 - (scrolled * 0.0003));
-                    
-                    // Efek Vertical Pan: Background bergerak lebih lambat (0.4x speed)
-                    const panY = scrolled * 0.4;
-                    
-                    bgArt.style.transform = `translateY(${panY}px) scale(${zoomFactor})`;
-                    
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
-
-        // --- 2. DYNAMIC DATA LOADING ---
+        // --- 1. DYNAMIC DATA LOADING ---
         async function loadPosts() {
             try {
                 const response = await fetch('data.json');
@@ -273,7 +263,7 @@
             }
         }
 
-        // --- 3. ANIMATION INITIALIZERS ---
+        // --- 2. ANIMATION INITIALIZERS ---
         function initCardAnimations() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -298,7 +288,7 @@
             });
         }
 
-        // --- 4. PARTICLE SYSTEM ---
+        // --- 3. PARTICLE SYSTEM ---
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particlesArray;
@@ -349,7 +339,7 @@
             initParticles();
         });
 
-        // --- 5. SCROLL PROGRESS ---
+        // --- 4. SCROLL PROGRESS ---
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
