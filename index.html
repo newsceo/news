@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Celebrity Top 1 - Ultra Premium Experience</title>
+    <title>Celebrity Top 1 - Ultra Cinematic</title>
     
     <!-- Font Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,164 +14,222 @@
         /* --- 1. CORE VARIABLES & RESET --- */
         :root {
             --primary: #ff6b35;
-            --secondary: #d4af37;
-            --dark-bg: #0f0c29;
+            --gold: #d4af37;
             --text-main: #ffffff;
-            --text-sub: #cccccc;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --text-sub: #c0c0c0;
+            --card-bg: rgba(10, 10, 10, 0.75);
+            --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
         
         body { 
             font-family: 'Inter', sans-serif !important; 
-            background-color: var(--dark-bg); 
-            color: var(--text-main); 
+            color: var(--text-main) !important; 
             overflow-x: hidden;
+            perspective: 1000px;
             min-height: 100vh;
+            position: relative;
         }
 
-        /* --- 2. SUNSET MOUNTAIN BACKGROUND ART (CSS ONLY) --- */
-        .background-art {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-            background: linear-gradient(to bottom, #2b1055, #7597de);
-            overflow: hidden;
-        }
-        
-        /* Sun */
-        .sun {
-            position: absolute; bottom: 30%; left: 50%; transform: translateX(-50%);
-            width: 150px; height: 150px; background: linear-gradient(to top, #ff6b35, #ffd700);
-            border-radius: 50%; box-shadow: 0 0 60px #ff6b35, 0 0 100px #ff4500;
-            opacity: 0.9;
-        }
-        
-        /* Mountains */
-        .mountain {
-            position: absolute; bottom: 0; width: 100%; height: 40%;
-            background: linear-gradient(to top, #0f0c29, #302b63);
-            clip-path: polygon(0% 100%, 0% 20%, 20% 60%, 40% 30%, 60% 70%, 80% 40%, 100% 80%, 100% 100%);
-            z-index: -1; opacity: 0.8;
-        }
-        .mountain:nth-child(2) {
-            height: 50%; background: linear-gradient(to top, #000000, #24243e);
-            clip-path: polygon(0% 100%, 15% 40%, 35% 80%, 50% 30%, 70% 60%, 85% 20%, 100% 100%);
-            z-index: 0; opacity: 1;
+        /* --- 2. SUNSET MOUNTAIN ART BACKGROUND (Pure CSS) --- */
+        .bg-sunset-art {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3;
+            background: linear-gradient(to bottom, #2b1055 0%, #7597de 40%, #fea49f 70%, #ffc3a0 100%);
         }
 
-        /* Canvas for Floating Particles */
+        /* Layer Pegunungan Belakang */
+        .mountain-back {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 45%;
+            background: linear-gradient(to top, #4a1c40, #8e44ad);
+            clip-path: polygon(0% 100%, 0% 40%, 15% 20%, 30% 50%, 50% 15%, 70% 45%, 85% 25%, 100% 60%, 100% 100%);
+            opacity: 0.8; filter: blur(2px);
+        }
+
+        /* Layer Pegunungan Depan (Siluet Gelap) */
+        .mountain-front {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 30%;
+            background: linear-gradient(to top, #0f0518, #2c1b3d);
+            clip-path: polygon(0% 100%, 0% 60%, 20% 30%, 40% 70%, 60% 40%, 80% 80%, 100% 50%, 100% 100%);
+            z-index: 1;
+        }
+
+        /* Matahari Terbenam */
+        .sun-glow {
+            position: absolute; bottom: 25%; left: 50%; transform: translateX(-50%);
+            width: 150px; height: 150px; border-radius: 50%;
+            background: radial-gradient(circle, #ff9a9e 0%, #fad0c4 40%, transparent 70%);
+            filter: blur(20px); opacity: 0.9; z-index: 0;
+            animation: sunPulse 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes sunPulse {
+            0% { transform: translateX(-50%) scale(1); opacity: 0.8; }
+            100% { transform: translateX(-50%) scale(1.2); opacity: 1; }
+        }
+
+        /* Canvas Partikel di atas Background tapi di bawah konten */
         #particle-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2; pointer-events: none;
         }
 
-        /* --- 3. UI COMPONENTS --- */
-        
-        /* Reading Progress Bar */
+        /* Reading Progress Bar Neon */
         .progress-bar {
             position: fixed; top: 0; left: 0; height: 3px; 
-            background: linear-gradient(90deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
-            background-size: 400% 400%;
-            animation: gradientMove 3s ease infinite;
-            width: 0%; z-index: 1000; transition: width 0.1s;
+            background: linear-gradient(90deg, var(--primary), var(--gold), #ff00cc, #00ffff);
+            width: 0%; z-index: 1000; transition: width 0.1s ease-out;
+            box-shadow: 0 0 15px var(--primary);
         }
-        @keyframes gradientMove { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
-        /* Header */
+        /* --- 3. CINEMATIC HEADER --- */
         .premium-header {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: rgba(15, 12, 41, 0.7); backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--glass-border); padding: 1.2rem 0;
+            background: rgba(15, 5, 24, 0.6);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 1.2rem 0; transition: var(--transition-smooth);
         }
-        .header-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .header-container { 
+            max-width: 1200px; margin: 0 auto; padding: 0 2rem; 
+            display: flex; justify-content: space-between; align-items: center; 
+        }
         .brand-logo {
-            font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
-            background: linear-gradient(90deg, #fff, #aaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff, var(--gold));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-decoration: none; text-transform: uppercase;
         }
 
-        /* Hero Section */
-        .hero-section { padding: 12rem 2rem 6rem; text-align: center; position: relative; z-index: 1; }
+        /* --- 4. HERO SECTION --- */
+        .hero-section {
+            padding: 14rem 2rem 6rem; text-align: center; position: relative; z-index: 2;
+        }
         .hero-title {
-            font-size: clamp(3rem, 6vw, 5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem;
+            font-size: clamp(3rem, 7vw, 6rem); font-weight: 800; line-height: 1.1;
+            margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 1s ease forwards 0.2s;
             text-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .hero-subtitle { font-size: 1.2rem; color: var(--text-sub); max-width: 600px; margin: 0 auto; }
-
-        /* --- 4. CARD WITH RGB BORDER ANIMATION --- */
-        .content-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 2rem 8rem; position: relative; z-index: 1; }
-        .post-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; perspective: 1000px; }
-
-        /* The Card Container */
-        .card-wrapper {
-            position: relative; width: 100%; height: 100%; border-radius: 24px;
-            overflow: hidden; transition: var(--transition-smooth);
-            transform-style: preserve-3d;
+        .hero-subtitle {
+            font-size: 1.3rem; color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto;
+            opacity: 0; animation: fadeUp 1s ease forwards 0.4s; font-weight: 300;
         }
 
-        /* The RGB Spinning Border Effect */
+        /* --- 5. 3D POST GRID WITH RGB BORDER --- */
+        .content-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 2rem 8rem; position: relative; z-index: 2; }
+        
+        .post-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem; perspective: 1000px;
+        }
+
+        /* Wrapper untuk efek RGB Border */
+        .card-wrapper {
+            position: relative; border-radius: 24px; padding: 2px; /* Ketebalan border */
+            overflow: hidden; transform-style: preserve-3d;
+            opacity: 0; transform: translateY(40px);
+            transition: var(--transition-smooth);
+        }
+
+        /* Animasi Warna-warni Berjalan (Conic Gradient) */
         .card-wrapper::before {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: conic-gradient(#fd004c, #fe9000, #fff020, #3edf4b, #3363ff, #b102b7, #fd004c);
-            animation: spin 4s linear infinite;
-            z-index: 0; opacity: 0; transition: opacity 0.3s;
+            background: conic-gradient(
+                from 0deg, 
+                transparent 0deg, 
+                #ff0000 60deg, 
+                #ff7f00 120deg, 
+                #ffff00 180deg, 
+                #00ff00 240deg, 
+                #0000ff 300deg, 
+                #8b00ff 360deg,
+                transparent 360deg
+            );
+            animation: rotateBorder 4s linear infinite;
+            z-index: 0;
         }
-        .card-wrapper:hover::before { opacity: 1; }
-        
-        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* The Inner Card Content (Glassmorphism) */
+        @keyframes rotateBorder {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Kartu Utama (Glassmorphism Gelap) */
         .post-card {
-            position: relative; width: 100%; height: 100%; background: rgba(20, 20, 30, 0.85);
-            backdrop-filter: blur(20px); border-radius: 20px; z-index: 1;
-            display: flex; flex-direction: column; overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--card-bg); border-radius: 22px; overflow: hidden;
+            position: relative; z-index: 1; height: 100%;
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition-smooth);
         }
 
-        .card-image-wrap { height: 240px; overflow: hidden; position: relative; }
-        .card-image-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
-        .card-wrapper:hover .card-image-wrap img { transform: scale(1.1); }
+        .card-wrapper:hover { transform: translateY(-10px) scale(1.02); }
 
-        .card-body { padding: 2rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-image-wrap {
+            height: 240px; overflow: hidden; position: relative; 
+        }
+        .card-image-wrap img {
+            width: 100%; height: 100%; object-fit: cover; 
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            filter: brightness(0.85) contrast(1.1);
+        }
+        .card-wrapper:hover .card-image-wrap img { transform: scale(1.1); filter: brightness(1); }
+
+        .card-body { padding: 2rem; position: relative; z-index: 2; }
         
         .post-tag {
-            font-size: 0.7rem; font-weight: 800; color: #fff; text-transform: uppercase;
-            letter-spacing: 1px; margin-bottom: 1rem; display: inline-block;
-            background: linear-gradient(90deg, #ff6b35, #d4af37); padding: 4px 12px; border-radius: 4px; width: fit-content;
+            font-size: 0.65rem; font-weight: 800; color: var(--gold); text-transform: uppercase;
+            letter-spacing: 2px; margin-bottom: 1rem; display: inline-block;
+            border: 1px solid rgba(212, 175, 55, 0.4); padding: 4px 12px; border-radius: 4px;
+            background: rgba(212, 175, 55, 0.1);
         }
         
-        .post-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.3; }
-        .post-title a { text-decoration: none; color: #fff; }
-        
-        .post-snippet { font-size: 0.9rem; color: #aaa; margin-bottom: 1.5rem; line-height: 1.6; }
-        
+        .post-title {
+            font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.3;
+        }
+        .post-title a { text-decoration: none; color: #fff; transition: color 0.3s; }
+        .post-title a:hover { color: var(--primary); }
+
+        .post-snippet { font-size: 0.9rem; color: var(--text-sub); margin-bottom: 1.5rem; line-height: 1.7; }
+
         .read-more {
-            margin-top: auto; text-decoration: none; color: #fff; font-weight: 600;
-            display: inline-flex; align-items: center; gap: 8px; transition: gap 0.3s;
+            text-decoration: none; color: #fff; font-weight: 600; font-size: 0.85rem;
+            display: inline-flex; align-items: center; gap: 8px; transition: gap 0.3s ease;
+            text-transform: uppercase; letter-spacing: 1px;
         }
-        .read-more:hover { gap: 12px; color: #fe9000; }
+        .read-more:hover { gap: 12px; color: var(--gold); }
+        .read-more::after { content: '→'; font-size: 1.2rem; }
 
-        /* Footer */
-        .premium-footer { text-align: center; padding: 3rem; color: #666; font-size: 0.8rem; position: relative; z-index: 1; }
+        /* --- 6. FOOTER --- */
+        .premium-footer {
+            text-align: center; padding: 4rem 2rem; position: relative; z-index: 2;
+            background: linear-gradient(to top, #0f0518, transparent);
+        }
+        .premium-footer p { color: rgba(255,255,255,0.4); font-size: 0.8rem; letter-spacing: 1px; }
 
-        /* Responsive */
+        /* Animations */
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        .reveal-active { opacity: 1 !important; transform: translateY(0) !important; }
+
         @media (max-width: 768px) {
             .hero-section { padding: 8rem 1.5rem 4rem; }
-            .post-grid { grid-template-columns: 1fr; }
+            .post-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .hero-title { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Art -->
-    <div class="background-art">
-        <div class="sun"></div>
-        <div class="mountain"></div>
-        <div class="mountain"></div>
-    </div>
+    <!-- Background Layers -->
+    <div class="bg-sunset-art"></div>
+    <div class="sun-glow"></div>
+    <div class="mountain-back"></div>
+    <div class="mountain-front"></div>
+    
+    <!-- Canvas Partikel -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- Progress Bar -->
+    <!-- Reading Progress -->
     <div class="progress-bar" id="progressBar"></div>
 
     <!-- Header -->
@@ -183,55 +241,55 @@
 
     <!-- Hero -->
     <section class="hero-section">
-        <h1 class="hero-title">Cinematic Stories.<br><span style="color:#fe9000">Ultra Premium.</span></h1>
-        <p class="hero-subtitle">Experience the future of digital storytelling with immersive depth and vibrant aesthetics.</p>
+        <h1 class="hero-title">Cinematic Stories.<br>Eternal Sunset.</h1>
+        <p class="hero-subtitle">Experience celebrity news through an immersive lens of art and technology.</p>
     </section>
 
-    <!-- Main Content -->
+    <!-- Main Content Area -->
     <main class="content-wrapper">
-        <div class="post-grid">
+        <div class="post-grid" id="main-posts">
             
-            <!-- Card 1 -->
-            <div class="card-wrapper">
+            <!-- Kartu 1 -->
+            <div class="card-wrapper reveal">
                 <article class="post-card">
                     <div class="card-image-wrap">
-                        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80" alt="Post">
+                        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80" alt="Post Image">
                     </div>
                     <div class="card-body">
                         <span class="post-tag">Breaking News</span>
-                        <h2 class="post-title"><a href="#">Sydney Sweeney & Zendaya</a></h2>
+                        <h2 class="post-title"><a href="#">Sydney Sweeney & Zendaya: The New Era</a></h2>
                         <p class="post-snippet">Exploring the cinematic journey of today's top celebrities and their impact on modern fashion...</p>
-                        <a href="#" class="read-more">Read Article →</a>
+                        <a href="#" class="read-more">Read Article</a>
                     </div>
                 </article>
             </div>
 
-            <!-- Card 2 -->
-            <div class="card-wrapper">
+            <!-- Kartu 2 -->
+            <div class="card-wrapper reveal">
                 <article class="post-card">
                     <div class="card-image-wrap">
-                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80" alt="Post">
+                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80" alt="Post Image">
                     </div>
                     <div class="card-body">
                         <span class="post-tag">Lifestyle</span>
-                        <h2 class="post-title"><a href="#">Red Carpet 2026</a></h2>
+                        <h2 class="post-title"><a href="#">Behind the Scenes: Red Carpet 2026</a></h2>
                         <p class="post-snippet">An exclusive look at the preparations and styles that defined this year's most anticipated event...</p>
-                        <a href="#" class="read-more">Read Article →</a>
+                        <a href="#" class="read-more">Read Article</a>
                     </div>
                 </article>
             </div>
 
-             <!-- Card 3 -->
-             <div class="card-wrapper">
+             <!-- Kartu 3 -->
+             <div class="card-wrapper reveal">
                 <article class="post-card">
                     <div class="card-image-wrap">
-                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="Post">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="Post Image">
                     </div>
                     <div class="card-body">
                         <span class="post-tag">Tech & Media</span>
-                        <h2 class="post-title"><a href="#">Digital Luxury</a></h2>
+                        <h2 class="post-title"><a href="#">Digital Luxury: The Future of Fame</a></h2>
                         <p class="post-snippet">How social media algorithms are reshaping the definition of celebrity in the digital age...</p>
-                        <a href="#" class="read-more">Read Article →</a>
+                        <a href="#" class="read-more">Read Article</a>
                     </div>
                 </article>
             </div>
@@ -239,12 +297,14 @@
         </div>
     </main>
 
+    <!-- Footer -->
     <footer class="premium-footer">
         <p>&copy; 2026 Celebrity Top 1. Designed with Cinematic Precision.</p>
     </footer>
 
+    <!-- SCRIPTS -->
     <script>
-        // --- 1. PARTICLE SYSTEM (Floating Dust) ---
+        // --- 1. PARTICLE SYSTEM (Golden Fireflies) ---
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particlesArray;
@@ -252,55 +312,108 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
+        let mouse = { x: null, y: null, radius: 100 };
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
         class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.color = `rgba(255, 215, 0, ${Math.random() * 0.5})`; // Gold dust
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x; this.y = y;
+                this.directionX = directionX; this.directionY = directionY;
+                this.size = size; this.color = color;
+                this.baseSize = size;
+                this.angle = Math.random() * 360; // Untuk efek kedip
             }
             draw() {
-                ctx.fillStyle = this.color;
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
                 ctx.fill();
+                ctx.shadowBlur = 0; // Reset shadow untuk performa
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+
+                // Mouse interaction (repel)
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx*dx + dy*dy);
+                
+                if (distance < mouse.radius + this.size) {
+                    if (mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 2;
+                    if (mouse.x > this.x && this.x > this.size * 10) this.x -= 2;
+                    if (mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 2;
+                    if (mouse.y > this.y && this.y > this.size * 10) this.y -= 2;
+                }
+
+                // Twinkle effect
+                this.angle += 0.05;
+                this.size = this.baseSize + Math.sin(this.angle) * 0.5;
+
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
             }
         }
 
         function initParticles() {
             particlesArray = [];
-            for (let i = 0; i < 50; i++) {
-                particlesArray.push(new Particle());
+            let numberOfParticles = (canvas.height * canvas.width) / 12000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = Math.random() * innerWidth;
+                let y = Math.random() * innerHeight;
+                let directionX = (Math.random() * 0.5) - 0.25;
+                let directionY = (Math.random() * 0.5) - 0.25;
+                // Warna emas/oranye dengan opasitas bervariasi
+                let color = `rgba(255, ${150 + Math.random()*100}, ${50 + Math.random()*50}, ${0.3 + Math.random()*0.5})`; 
+                
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        function connectParticles() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x)**2) + 
+                                   ((particlesArray[a].y - particlesArray[b].y)**2);
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        let opacityValue = 1 - (distance / 15000);
+                        ctx.strokeStyle = `rgba(212, 175, 55, ${opacityValue * 0.1})`; // Garis emas sangat tipis
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
             }
         }
 
         function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-            }
             requestAnimationFrame(animateParticles);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            for (let i = 0; i < particlesArray.length; i++) particlesArray[i].update();
+            connectParticles();
         }
 
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
             initParticles();
         });
 
         initParticles();
         animateParticles();
 
-        // --- 2. SCROLL PROGRESS & TILT EFFECT ---
+        // --- 2. UI INTERACTIVITY ---
+        
+        // Reading Progress Bar
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -308,18 +421,30 @@
             document.getElementById("progressBar").style.width = scrolled + "%";
         });
 
-        // Magnetic Tilt for Cards
+        // Scroll Reveal Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Magnetic 3D Tilt Effect (Applied to card-wrapper)
         document.querySelectorAll('.card-wrapper').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                const xRot = ((y - rect.height / 2) / rect.height) * -10;
-                const yRot = ((x - rect.width / 2) / rect.width) * 10;
-                card.style.transform = `perspective(1000px) rotateX(${xRot}deg) rotateY(${yRot}deg) scale(1.02)`;
+                const xRot = ((y - rect.height / 2) / rect.height) * -6;
+                const yRot = ((x - rect.width / 2) / rect.width) * 6;
+                card.style.transform = `perspective(1000px) rotateX(${xRot}deg) rotateY(${yRot}deg) translateY(-10px) scale(1.02)`;
             });
+
             card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
             });
         });
     </script>
