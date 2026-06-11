@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sydney Sweeney & Zendaya - The Drama Unveiled</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #ff006e;
+            --secondary-color: #8338ec;
+            --accent-color: #3a86ff;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --text-light: #ffffff;
+            --text-muted: #b0b0b0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+            border-radius: 5px;
+        }
+
+        /* Particle Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float-particle 20s infinite linear;
+        }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,0,110,0.1) 0%, transparent 70%);
+            animation: rotate-glow 20s linear infinite;
+        }
+
+        @keyframes rotate-glow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            padding: 2rem;
+            max-width: 1200px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 0, 110, 0.2);
+            border: 1px solid var(--primary-color);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            animation: pulse-badge 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 110, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(255, 0, 110, 0.6); }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, #ff006e 50%, #8338ec 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: title-reveal 1.5s ease-out;
+        }
+
+        @keyframes title-reveal {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            animation: fade-in-up 1.5s ease-out 0.3s both;
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .scroll-indicator svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--primary-color);
+        }
+
+        /* Navigation */
+        .nav-floating {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-floating:hover {
+            background: rgba(255, 0, 110, 0.2);
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .nav-floating a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-number {
+            font-size: 8rem;
+            font-weight: 900;
+            color: rgba(255, 0, 110, 0.1);
+            position: absolute;
+            top: -2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-divider {
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            margin: 2rem auto;
+            border-radius: 2px;
+            animation: expand-line 2s ease-out;
+        }
+
+        @keyframes expand-line {
+            from { width: 0; }
+            to { width: 100px; }
+        }
+
+        /* Article Cards */
+        .article-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 110, 0.1), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .article-card:hover::before {
+            left: 100%;
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 60px rgba(255, 0, 110, 0.3);
+        }
+
+        .article-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .article-text strong {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .highlight-text {
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.2), rgba(131, 56, 236, 0.2));
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .image-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        .image-wrapper:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 30px 80px rgba(255, 0, 110, 0.4);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .image-wrapper:hover img {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 2rem;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+
+        .image-wrapper:hover .image-overlay {
+            transform: translateY(0);
+        }
+
+        .image-caption {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        /* Quote Box */
+        .quote-box {
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(131, 56, 236, 0.1));
+            border-left: 5px solid var(--primary-color);
+            padding: 2rem 3rem;
+            margin: 3rem 0;
+            border-radius: 0 20px 20px 0;
+            position: relative;
+            font-style: italic;
+        }
+
+        .quote-box::before {
+            content: '"';
+            font-size: 6rem;
+            color: var(--primary-color);
+            opacity: 0.3;
+            position: absolute;
+            top: -1rem;
+            left: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .quote-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: calc(50% + 30px);
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: calc(50% + 30px);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 30px rgba(255, 0, 110, 0.6);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.3); }
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 500px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            background: rgba(255, 0, 110, 0.1);
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .timeline-date {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Stats Counter */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(131, 56, 236, 0.1));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 0, 110, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .stat-card:hover::after {
+            opacity: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 60px rgba(255, 0, 110, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Comment Cards */
+        .comment-section {
+            margin: 4rem 0;
+        }
+
+        .comment-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--secondary-color);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 15px 15px 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .comment-card:hover {
+            background: rgba(131, 56, 236, 0.1);
+            transform: translateX(10px);
+            border-left-color: var(--primary-color);
+        }
+
+        .comment-icon {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--secondary-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .comment-text {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-top: 1rem;
+        }
+
+        /* Parallax Section */
+        .parallax-section {
+            min-height: 60vh;
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.2), rgba(131, 56, 236, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .parallax-content {
+            text-align: center;
+            z-index: 10;
+            padding: 2rem;
+        }
+
+        .parallax-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            animation: glow-text 3s ease-in-out infinite;
+        }
+
+        @keyframes glow-text {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 0, 110, 0.5); }
+            50% { text-shadow: 0 0 40px rgba(255, 0, 110, 1), 0 0 60px rgba(131, 56, 236, 0.8); }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker-bg);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-5px) rotate(360deg);
+            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.5);
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .rotate-in {
+            opacity: 0;
+            transform: rotate(-10deg) scale(0.8);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .rotate-in.visible {
+            opacity: 1;
+            transform: rotate(0) scale(1);
+        }
+
+        .blur-in {
+            opacity: 0;
+            filter: blur(20px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .blur-in.visible {
+            opacity: 1;
+            filter: blur(0);
+        }
+
+        /* Auto Show Animation Classes */
+        .auto-show {
+            animation: autoShowAnimation 1s ease-out forwards;
+        }
+
+        @keyframes autoShowAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* Floating Animation */
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Gradient Border Animation */
+        .gradient-border {
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+        }
+
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color), var(--primary-color));
+            background-size: 400% 400%;
+            border-radius: 20px;
+            z-index: -1;
+            animation: gradient-shift 3s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Text Reveal Animation */
+        .text-reveal {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .text-reveal::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            transform: translateX(-100%);
+            animation: reveal-text 1.5s ease-out forwards;
+        }
+
+        @keyframes reveal-text {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(0); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                padding-left: 60px;
+                padding-right: 0;
+                justify-content: flex-start;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(255, 0, 110, 0.2);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Magnetic Button Effect */
+        .magnetic-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .magnetic-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .magnetic-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .magnetic-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 40px rgba(255, 0, 110, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Floating Navigation -->
+    <div class="nav-floating">
+        <a href="#top">⬆ BACK TO TOP</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="top">
+        <div class="hero-content">
+            <div class="hero-badge auto-show">EXCLUSIVE REPORT</div>
+            <h1 class="hero-title text-reveal">Sydney Sweeney vs Zendaya</h1>
+            <p class="hero-subtitle auto-show">The Untold Story Behind Euphoria's Biggest Controversy</p>
+            <button class="magnetic-btn auto-show" onclick="document.getElementById('story').scrollIntoView({behavior: 'smooth'})">
+                READ THE STORY ↓
+            </button>
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Main Story Section -->
+    <section class="content-section" id="story">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <div class="section-number">01</div>
+                <h2 class="section-title">The Photo That Started It All</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="article-card blur-in">
+                <p class="article-text">
+                    Bintang kontroversial <span class="highlight-text">Sydney Sweeney</span> telah memicu desas-desus tentang dugaan <strong>'perseteruan pahit'</strong> dengan lawan mainnya di Euphoria, <span class="highlight-text">Zendaya</span>.
+                </p>
+                <p class="article-text">
+                    Sydney Sweeney terus memicu rumor perseteruan dengan menolaknya dari kumpulan foto Musim 3. Setelah final musim hari Minggu, Sweeney membagikan beberapa foto di balik layar, yang menampilkan beberapa anggota pemeran utamanya.
+                </p>
+                <p class="article-text">
+                    Sweeney berpose untuk foto dengan <strong>Jacob Elordi</strong> (Nate Jacobs), <strong>Alexa Demie</strong> (Maddy Perez), <strong>Maude Apatow</strong> (Lexi Howard) dan bahkan membagikan foto mendiang <strong>Eric Dane</strong> (Cal Jacobs)— tetapi <span class="highlight-text">Zendaya (Rue Bennett) terlihat hilang</span>.
+                </p>
+                <div class="quote-box">
+                    <p class="quote-text">"Itu disebut ... akting," dia memberi keterangan pada foto-foto itu, tampaknya membalas kritik perannya yang cabul sebagai Cassie Howard.</p>
+                </div>
+            </div>
+
+            <!-- Image Gallery -->
+            <div class="image-gallery">
+                <div class="image-wrapper scale-in">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCBuQhJxBr5Ui3AnOQnMHZ04uq0ZHj0EqpJHKtE6UGiTGz1ZMWUS4dCQore1apsMKx7zRDMf_EBV6uQ_1PX1n4oCcSNPyErpvo1g9lH_2x8z8iZocIDubXlVlOT2ymq2YUf_RxiLcz-5CnUmsiiSiUldSc1va_vVx_ojGRZJsk6D5CKK1ij2QEqcW2btY/s1600/zen.webp" alt="Zendaya">
+                    <div class="image-overlay">
+                        <p class="image-caption">Zendaya - The Star of Euphoria</p>
+                    </div>
+                </div>
+                <div class="image-wrapper scale-in">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg1vxHKZORDS2EUzvieNF0KSVKpNHmNkIOfXaaktJ8tzbLAqVKU4U5wrUvvSsWNSXgSqWEQrshdQqzlsM57JLuO2x2UsJMQOIUi8cy1CcIP4PgsxjEcppI7ft_Xwjwpzg3jTP4817ShXOYsqpnKMzWHhTnKU2abpybkJgJ7axxo9l_34bFhe6jiWhwmjZE/s1600/zend.webp" alt="Sydney Sweeney">
+                    <div class="image-overlay">
+                        <p class="image-caption">Sydney Sweeney - Cassie Howard</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article-card fade-in">
+                <p class="article-text">
+                    Banyak penggemar memuji Sweeney atas penampilannya di bagian komentar, sementara yang lain menunjukkan ketidakhadiran Zendaya dari tempat pembuangan sampah.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fan Reactions Section -->
+    <section class="content-section" style="background: linear-gradient(135deg, rgba(131, 56, 236, 0.1), rgba(255, 0, 110, 0.1));">
+        <div class="section-container">
+            <div class="section-header slide-in-left">
+                <div class="section-number">02</div>
+                <h2 class="section-title">Fan Reactions & Theories</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="comment-section">
+                <div class="comment-card slide-in-right">
+                    <div class="comment-icon">💬</div>
+                    <p class="comment-text">"Tidak ada foto dalam tayangan slide ini w zendaya saya bingung ..."</p>
+                </div>
+
+                <div class="comment-card slide-in-left">
+                    <div class="comment-icon">🤔</div>
+                    <p class="comment-text">"Zendaya tidak menyukai [Sweeney] karena nilai-nilainya," teori penggemar lain.</p>
+                </div>
+
+                <div class="comment-card slide-in-right">
+                    <div class="comment-icon">⚖️</div>
+                    <p class="comment-text">Namun, yang lain berpendapat bahwa Sweeney dan Zendaya "hampir tidak memiliki adegan bersama," menjelaskan mengapa mereka tidak memiliki foto di balik layar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="content-section">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <div class="section-number">03</div>
+                <h2 class="section-title">Timeline of Events</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">November 2025</div>
+                        <p>Daily Mail melaporkan bahwa Sweeney dan Zendaya "terkunci dalam perseteruan pahit" yang berasal dari pandangan politik mereka yang berbeda.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Campaign Controversy</div>
+                        <p>Sweeney menyebabkan kontroversi dengan kampanye denim American Eagle-nya, yang dituduh beberapa kritikus sebagai propaganda Nazi dengan nada rasis.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Season 3 Production</div>
+                        <p>Zendaya menolak untuk melakukan pers dengan Sweeney untuk "Euphoria" Musim 3, dan keduanya diduga menolak untuk berdiri bersebelahan di acara.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">March 2026</div>
+                        <p>Ketika Sweeney absen dari pemotretan pemeran Euphoria, ini menambah lebih banyak bahan bakar pada rumor.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">April 2026</div>
+                        <p>Para wanita tampaknya menghindari satu sama lain di pemutaran perdana musim - yang diduga tidak mengejutkan beberapa rekan mereka.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Section -->
+    <section class="parallax-section">
+        <div class="parallax-content">
+            <h2 class="parallax-title float-animation">The Tension is Real</h2>
+            <p style="font-size: 1.3rem; color: var(--text-muted); max-width: 800px; margin: 0 auto;">
+                "Ada ketegangan di masa lalu ... Jalan mereka hampir tidak berpapasan selama pembuatan Musim 3"
+            </p>
+        </div>
+    </section>
+
+    <!-- Insider Details Section -->
+    <section class="content-section">
+        <div class="section-container">
+            <div class="section-header rotate-in">
+                <div class="section-number">04</div>
+                <h2 class="section-title">Inside Sources Reveal All</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="article-card gradient-border blur-in">
+                <p class="article-text">
+                    Menurut sumber insider kepada Sun, <strong>"Bos 'Euphoria' terlalu sadar bahwa pasangan itu tidak akur."</strong> Selama tur pers, interaksi apa pun antara pasangan itu dijaga seminimal mungkin untuk menghindari pertemuan canggung di depan kamera.
+                </p>
+                <div class="quote-box">
+                    <p class="quote-text">Ada larangan total bagi wartawan yang bertanya tentang ketegangan antara Zendaya dan Sydney.</p>
+                </div>
+                <p class="article-text">
+                    Orang dalam juga mencatat bahwa perselisihan mereka berasal dari Sweeney yang memiliki <span class="highlight-text">"kepanasan"</span> untuk tunangan Zendaya, <strong>Tom Holland</strong>, dan "menggoda dia" ketika dia datang ke lokasi syuting.
+                </p>
+                <p class="article-text" style="color: var(--primary-color); font-weight: 600;">
+                    "Itu tidak berjalan dengan baik dengan Zendaya. Mereka tidak benar-benar nongkrong secara sosial sejak saat itu."
+                </p>
+                <p class="article-text">
+                    Klaim tambahan menyebutkan: <strong>"Ini sedikit sakit kepala karena Zendaya tidak ingin dikaitkan dengan pendukung Trump."</strong>
+                </p>
+            </div>
+
+            <!-- Final Image -->
+            <div class="image-gallery">
+                <div class="image-wrapper rotate-in" style="grid-column: 1 / -1; aspect-ratio: 16/9;">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEipfXbpsGfyHLvGnxyyppJx8mVj4C1LyUEqwshD88wly0gd8iW_Qe_v2BgX9SyEkDkHVGR58wjYlOdjOjBK2HeKN6uWlvCaeKsAtqyn5h6YxBwEFtDwX689ahSdz4xybo2cIk26ZggTI0UoiV9cL1Zskiy1TLMzN_Jb0YeTvwzRXWsp-izMPtwuJGlsDPw/s1600/euphoria.webp" alt="Euphoria Cast">
+                    <div class="image-overlay">
+                        <p class="image-caption">Hunter Schafer, Alexa Demie, Sydney Sweeney dan Maude Apatow pada pemutaran perdana Euphoria - April 2026</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="content-section" style="background: linear-gradient(135deg, rgba(255, 0, 110, 0.05), rgba(131, 56, 236, 0.05));">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">By The Numbers</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card scale-in">
+                    <div class="stat-number" data-target="3">0</div>
+                    <div class="stat-label">Seasons</div>
+                </div>
+                <div class="stat-card scale-in">
+                    <div class="stat-number" data-target="2">0</div>
+                    <div class="stat-label">Leading Ladies</div>
+                </div>
+                <div class="stat-card scale-in">
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">% Drama</div>
+                </div>
+                <div class="stat-card scale-in">
+                    <div class="stat-number" data-target="0">0</div>
+                    <div class="stat-label">Joint Photos</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <div class="social-link">📱</div>
+            <div class="social-link">📷</div>
+            <div class="social-link">🐦</div>
+            <div class="social-link">📘</div>
+        </div>
+        <p class="footer-text">© 2026 Entertainment News | Cinematic Premium Experience</p>
+        <p class="footer-text" style="margin-top: 1rem; font-size: 0.8rem;">Designed with ❤️ for the ultimate viewing experience</p>
+    </footer>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Create Particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Auto show animation
+                    if (!entry.target.classList.contains('auto-show')) {
+                        entry.target.classList.add('auto-show');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in, .rotate-in, .blur-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter Animation
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-target'));
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    element.textContent = target + (target === 100 ? '%' : '');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 16);
+        }
+
+        // Observe stat cards for counter animation
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumber = entry.target.querySelector('.stat-number');
+                    if (statNumber && !statNumber.classList.contains('counted')) {
+                        statNumber.classList.add('counted');
+                        animateCounter(statNumber);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-card').forEach(card => {
+            statObserver.observe(card);
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax-content');
+            
+            parallaxElements.forEach(el => {
+                const speed = 0.5;
+                el.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Mouse move effect on cards
+        document.querySelectorAll('.article-card, .image-wrapper').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            });
+        });
+
+        // Auto blur and rotate on scroll
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const elements = document.querySelectorAll('.article-card, .image-wrapper');
+            
+            elements.forEach((el, index) => {
+                const rect = el.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                
+                if (isVisible) {
+                    const distanceFromCenter = Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2);
+                    const maxDistance = window.innerHeight / 2;
+                    const blurAmount = (distanceFromCenter / maxDistance) * 5;
+                    const rotateAmount = (distanceFromCenter / maxDistance) * 2;
+                    
+                    if (distanceFromCenter > maxDistance * 0.7) {
+                        el.style.filter = `blur(${blurAmount}px)`;
+                        el.style.transform = `rotate(${scrollTop > lastScrollTop ? rotateAmount : -rotateAmount}deg)`;
+                    } else {
+                        el.style.filter = 'blur(0px)';
+                        el.style.transform = 'rotate(0deg)';
+                    }
+                }
+            });
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Magnetic button effect
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.1)`;
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0) scale(1)';
+            });
+        });
+
+        console.log('🎬 Cinematic Premium Website Loaded Successfully!');
+    </script>
+</body>
+</html>
