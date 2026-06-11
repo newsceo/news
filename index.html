@@ -5,244 +5,631 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Celebrity Top 1 - Ultra Premium Cinematic</title>
     
-    <!-- Font Inter -->
+    <!-- Font Inter + Playfair Display for elegance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 
     <style>
         /* --- 1. CORE VARIABLES & RESET --- */
         :root {
             --primary: #ff6b35;
+            --primary-glow: rgba(255, 107, 53, 0.4);
             --accent: #7000ff;
+            --accent-glow: rgba(112, 0, 255, 0.3);
             --cyan: #00f2ff;
+            --cyan-glow: rgba(0, 242, 255, 0.3);
+            --gold: #ffd700;
             --dark-bg: #050505;
+            --card-bg: #0a0a0f;
             --text-main: #ffffff;
-            --text-sub: #a0a0a0;
+            --text-sub: #9090a0;
             --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --transition-smooth: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --card-radius: 24px;
+            --transition-smooth: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
         
+        html { scroll-behavior: smooth; }
+
         body { 
-            font-family: 'Inter', sans-serif !important; 
+            font-family: 'Inter', sans-serif; 
             background-color: var(--dark-bg); 
             color: var(--text-main); 
             overflow-x: hidden;
             min-height: 100vh;
-            cursor: none; /* Hide default cursor for custom spotlight */
         }
 
-        /* --- 2. AURORA NEBULA BACKGROUND (ANIMATED) --- */
-        .aurora-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-            background: radial-gradient(circle at 50% 50%, #1a0b2e 0%, #000000 100%);
+        /* --- SCROLLBAR STYLING --- */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--dark-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        /* --- 2. CINEMATIC BACKGROUND LAYERS --- */
+        .cinematic-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3;
+            background: radial-gradient(ellipse at 20% 50%, #1a0b2e 0%, #000000 70%);
             overflow: hidden;
         }
-        
+
+        /* Deep space nebula clouds */
         .nebula {
-            position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4;
-            animation: floatNebula 20s infinite alternate ease-in-out;
+            position: absolute; border-radius: 50%; filter: blur(100px);
+            animation: floatNebula 30s infinite alternate ease-in-out;
         }
-        .nebula-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #7000ff; animation-delay: 0s; }
-        .nebula-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: #ff6b35; animation-delay: -5s; }
-        .nebula-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: #00f2ff; animation-delay: -10s; opacity: 0.2; }
+        .nebula-1 { top: -5%; left: -5%; width: 55vw; height: 55vw; background: var(--accent); opacity: 0.3; animation-duration: 25s; }
+        .nebula-2 { bottom: -10%; right: -5%; width: 65vw; height: 65vw; background: var(--primary); opacity: 0.25; animation-duration: 35s; animation-delay: -8s; }
+        .nebula-3 { top: 30%; left: 30%; width: 50vw; height: 50vw; background: var(--cyan); opacity: 0.12; animation-duration: 40s; animation-delay: -15s; }
+        .nebula-4 { top: 60%; left: 10%; width: 40vw; height: 40vw; background: var(--gold); opacity: 0.08; animation-duration: 28s; animation-delay: -5s; }
 
         @keyframes floatNebula {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, 50px) scale(1.1); }
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(60px, -30px) scale(1.08) rotate(5deg); }
+            100% { transform: translate(-30px, 50px) scale(0.95) rotate(-3deg); }
         }
 
-        /* Mouse Spotlight Effect */
+        /* Scan line overlay for cinematic feel */
+        .scanlines {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(255, 255, 255, 0.015) 2px,
+                rgba(255, 255, 255, 0.015) 4px
+            );
+        }
+
+        /* Vignette overlay */
+        .vignette {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.7) 100%);
+        }
+
+        /* Mouse Spotlight (now with color) */
         .spotlight {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.08) 0%, transparent 40%);
-            transition: background 0.1s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), 
+                rgba(112, 0, 255, 0.08) 0%, 
+                rgba(0, 242, 255, 0.04) 20%, 
+                transparent 50%);
+            transition: background 0.15s ease;
         }
 
-        /* Canvas Particles */
-        #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        /* Floating Particles Canvas */
+        #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 
-        /* --- 3. UI COMPONENTS --- */
-        
-        /* Progress Bar */
+        /* Grain noise texture */
+        .grain {
+            position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; z-index: 0;
+            pointer-events: none; opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            animation: grainAnim 0.5s steps(4) infinite;
+        }
+        @keyframes grainAnim { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(-5%, -5%); } 50% { transform: translate(5%, 5%); } 75% { transform: translate(-5%, 5%); } }
+
+        /* --- 3. CUSTOM CURSOR --- */
+        .cursor-dot {
+            position: fixed; width: 8px; height: 8px; background: #fff; border-radius: 50%;
+            pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
+            mix-blend-mode: difference; transition: width 0.2s, height 0.2s, background 0.2s;
+        }
+        .cursor-ring {
+            position: fixed; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50%; pointer-events: none; z-index: 9998;
+            transform: translate(-50%, -50%); transition: all 0.15s ease;
+            backdrop-filter: blur(2px);
+        }
+        .cursor-ring.hovered { width: 60px; height: 60px; border-color: var(--cyan); background: rgba(0,242,255,0.05); }
+
+        /* --- 4. PROGRESS BAR --- */
         .progress-bar {
-            position: fixed; top: 0; left: 0; height: 2px; 
-            background: linear-gradient(90deg, var(--primary), var(--cyan));
-            width: 0%; z-index: 1000; transition: width 0.1s;
-            box-shadow: 0 0 10px var(--primary);
+            position: fixed; top: 0; left: 0; height: 3px; z-index: 1000;
+            background: linear-gradient(90deg, var(--accent), var(--cyan), var(--primary));
+            width: 0%; transition: width 0.1s linear;
+            box-shadow: 0 0 15px var(--accent-glow), 0 0 30px var(--cyan-glow);
         }
 
-        /* Header */
+        /* --- 5. HEADER / NAVIGATION --- */
         .premium-header {
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: rgba(5, 5, 5, 0.6); backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border); padding: 1.2rem 0;
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+            background: rgba(5, 5, 5, 0.4); backdrop-filter: blur(30px) saturate(1.2);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 0;
+            transition: var(--transition-smooth);
         }
-        .header-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .premium-header.scrolled {
+            background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(40px) saturate(1.5);
+            padding: 0.6rem 0;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        }
+        .header-container { max-width: 1260px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
         .brand-logo {
-            font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
-            background: linear-gradient(90deg, #fff, var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-
-        /* Hero Section */
-        .hero-section { padding: 14rem 2rem 8rem; text-align: center; position: relative; z-index: 1; }
-        .hero-title {
-            font-size: clamp(3rem, 7vw, 6rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem;
-            background: linear-gradient(to bottom, #fff 0%, #aaa 100%);
+            font-size: 1.3rem; font-weight: 900; text-transform: uppercase; letter-spacing: 3px;
+            background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--accent) 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(112, 0, 255, 0.3));
-            opacity: 0; animation: fadeUp 1s ease forwards 0.2s;
+            background-size: 200% 200%; animation: shimmer 4s ease-in-out infinite;
+            position: relative;
         }
-        .hero-subtitle { 
-            font-size: 1.2rem; color: var(--text-sub); max-width: 600px; margin: 0 auto; 
-            opacity: 0; animation: fadeUp 1s ease forwards 0.4s;
+        .brand-logo::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+        }
+        @keyframes shimmer { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+        .nav-links a {
+            text-decoration: none; color: var(--text-sub); font-size: 0.85rem; font-weight: 500;
+            letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
+            background: var(--cyan); transition: width 0.3s;
+        }
+        .nav-links a:hover { color: #fff; }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--primary), #ff4500); padding: 8px 20px;
+            border-radius: 50px; color: #fff !important; font-weight: 700 !important;
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+        .nav-cta:hover { box-shadow: 0 0 30px var(--primary-glow); }
+
+        /* --- 6. HERO SECTION (CINEMATIC DEPTH) --- */
+        .hero-section {
+            position: relative; min-height: 100vh; display: flex; align-items: center;
+            justify-content: center; text-align: center; padding: 10rem 2rem 8rem;
+            z-index: 1; overflow: hidden;
         }
 
-        /* --- 4. HOLOGRAPHIC CARDS --- */
-        .content-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 2rem 8rem; position: relative; z-index: 1; }
-        .post-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; perspective: 1000px; }
+        /* 3D Parallax depth layers */
+        .hero-bg-layer {
+            position: absolute; inset: 0; z-index: 0;
+            background: radial-gradient(ellipse at 30% 40%, rgba(112,0,255,0.1) 0%, transparent 50%);
+            transform: translateZ(-10px) scale(2);
+        }
+        .hero-bg-layer-2 {
+            position: absolute; inset: 0; z-index: 0;
+            background: radial-gradient(ellipse at 70% 60%, rgba(0,242,255,0.08) 0%, transparent 40%);
+            transform: translateZ(-20px) scale(3);
+        }
+
+        .hero-content { position: relative; z-index: 2; max-width: 900px; }
+
+        .hero-badge {
+            display: inline-block; padding: 6px 20px; border-radius: 50px;
+            border: 1px solid rgba(0, 242, 255, 0.2); font-size: 0.7rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 2px; color: var(--cyan);
+            background: rgba(0, 242, 255, 0.05); margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 900; line-height: 1.05;
+            margin-bottom: 1.5rem; letter-spacing: -0.02em;
+            background: linear-gradient(to bottom, #fff 0%, rgba(255,255,255,0.6) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 60px rgba(112, 0, 255, 0.2));
+        }
+        .hero-title .accent-word {
+            background: linear-gradient(135deg, var(--cyan), var(--accent), var(--primary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-size: 200% 200%; animation: shimmer 4s ease-in-out infinite;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem; color: var(--text-sub); max-width: 600px; margin: 0 auto 2.5rem;
+            line-height: 1.7; font-weight: 300; letter-spacing: 0.3px;
+        }
+
+        .hero-actions { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+
+        .btn-primary, .btn-secondary {
+            padding: 14px 36px; border-radius: 50px; font-weight: 700; font-size: 0.9rem;
+            text-decoration: none; transition: var(--transition-bounce); display: inline-flex; align-items: center; gap: 8px;
+            letter-spacing: 1px; text-transform: uppercase;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #ff4500); color: #fff;
+            box-shadow: 0 4px 30px var(--primary-glow);
+        }
+        .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 40px var(--primary-glow); }
+        .btn-secondary {
+            border: 1px solid rgba(255,255,255,0.15); color: #fff;
+            background: rgba(255,255,255,0.04); backdrop-filter: blur(10px);
+        }
+        .btn-secondary:hover { border-color: var(--cyan); background: rgba(0,242,255,0.08); transform: translateY(-3px); }
+
+        /* Floating decorative elements */
+        .float-element {
+            position: absolute; width: 60px; height: 60px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,242,255,0.15), transparent);
+            filter: blur(20px); animation: floatAround 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        .float-1 { top: 15%; left: 10%; width: 120px; height: 120px; background: radial-gradient(circle, rgba(112,0,255,0.12), transparent); animation-delay: 0s; }
+        .float-2 { bottom: 20%; right: 8%; width: 100px; height: 100px; background: radial-gradient(circle, rgba(255,107,53,0.1), transparent); animation-delay: -3s; }
+        .float-3 { top: 30%; right: 15%; width: 80px; height: 80px; background: radial-gradient(circle, rgba(0,242,255,0.08), transparent); animation-delay: -6s; }
+
+        @keyframes floatAround {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -30px) scale(1.1); }
+            50% { transform: translate(-15px, 20px) scale(0.9); }
+            75% { transform: translate(25px, 15px) scale(1.05); }
+        }
+
+        /* Typing cursor effect on subtitle word */
+        .typing-cursor { display: inline-block; width: 3px; height: 1.2em; background: var(--cyan); margin-left: 4px; animation: blink 1s step-end infinite; vertical-align: text-bottom; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            color: var(--text-sub); font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
+            animation: bounceDown 2s ease-in-out infinite;
+        }
+        .scroll-indicator .mouse {
+            width: 24px; height: 38px; border: 1.5px solid rgba(255,255,255,0.15); border-radius: 12px;
+            display: flex; justify-content: center; padding-top: 8px;
+        }
+        .scroll-indicator .mouse .wheel {
+            width: 2px; height: 8px; background: var(--cyan); border-radius: 2px;
+            animation: scrollWheel 1.5s ease-in-out infinite;
+        }
+        @keyframes scrollWheel { 0%, 100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(6px); opacity: 0.3; } }
+        @keyframes bounceDown { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+        /* --- 7. HOLOGRAPHIC CARDS (ENHANCED) --- */
+        .content-wrapper { max-width: 1260px; margin: 0 auto; padding: 0 2rem 10rem; position: relative; z-index: 1; }
+
+        .section-header {
+            text-align: center; margin-bottom: 4rem;
+        }
+        .section-label {
+            font-size: 0.7rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--cyan); margin-bottom: 1rem;
+        }
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800;
+            background: linear-gradient(to bottom, #fff 0%, rgba(255,255,255,0.5) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .post-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
+            gap: 2.5rem; 
+            perspective: 1200px; 
+        }
 
         .card-wrapper {
-            position: relative; width: 100%; height: 100%; border-radius: 24px;
-            overflow: hidden; transition: var(--transition-smooth);
-            transform-style: preserve-3d; background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
+            position: relative; border-radius: var(--card-radius); overflow: visible;
+            transform-style: preserve-3d;
+            opacity: 0; transform: translateY(60px);
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), 
+                        transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
+        .card-wrapper.visible { opacity: 1; transform: translateY(0); }
+        .card-wrapper:nth-child(2) { transition-delay: 0.15s; }
+        .card-wrapper:nth-child(3) { transition-delay: 0.3s; }
 
-        /* Holographic Shine Overlay */
-        .card-wrapper::after {
-            content: ''; position: absolute; inset: 0; border-radius: 24px;
-            background: linear-gradient(125deg, transparent 30%, rgba(255,255,255,0.1) 45%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 55%, transparent 70%);
-            transform: translateX(-100%); transition: transform 0.6s;
-            pointer-events: none; z-index: 2;
+        /* Animated gradient border */
+        .card-wrapper::before {
+            content: ''; position: absolute; inset: -1px; border-radius: var(--card-radius);
+            background: linear-gradient(135deg, var(--accent), var(--cyan), var(--primary), var(--accent));
+            background-size: 300% 300%; animation: borderGlow 6s ease-in-out infinite;
+            z-index: -1; opacity: 0; transition: opacity 0.4s;
         }
-        .card-wrapper:hover::after { transform: translateX(100%); }
+        .card-wrapper:hover::before { opacity: 1; }
+
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
         .post-card {
-            position: relative; width: 100%; height: 100%; background: rgba(10, 10, 15, 0.7);
-            backdrop-filter: blur(15px); border-radius: 24px; z-index: 1;
+            position: relative; width: 100%; height: 100%; 
+            background: linear-gradient(135deg, rgba(10, 10, 15, 0.9), rgba(15, 15, 25, 0.9));
+            backdrop-filter: blur(20px); border-radius: var(--card-radius); z-index: 1;
             display: flex; flex-direction: column; overflow: hidden;
+            border: 1px solid var(--glass-border);
+            transition: var(--transition-smooth);
+        }
+        .card-wrapper:hover .post-card { border-color: transparent; }
+
+        /* Holographic shine sweep */
+        .post-card::after {
+            content: ''; position: absolute; inset: 0; border-radius: var(--card-radius);
+            background: linear-gradient(
+                125deg, 
+                transparent 25%, 
+                rgba(255,255,255,0.06) 40%, 
+                rgba(255,255,255,0.12) 45%, 
+                rgba(255,255,255,0.06) 50%, 
+                transparent 65%
+            );
+            transform: translateX(-100%) rotate(15deg);
+            transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
+        }
+        .card-wrapper:hover .post-card::after { transform: translateX(150%) rotate(15deg); }
+
+        .card-image-wrap { 
+            height: 260px; overflow: hidden; position: relative; 
+        }
+        .card-image-wrap img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            filter: brightness(0.7) saturate(0.9);
+        }
+        .card-wrapper:hover .card-image-wrap img { 
+            transform: scale(1.15); 
+            filter: brightness(1) saturate(1.1);
         }
 
-        .card-image-wrap { height: 240px; overflow: hidden; position: relative; }
-        .card-image-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; filter: brightness(0.8); }
-        .card-wrapper:hover .card-image-wrap img { transform: scale(1.1); filter: brightness(1.1); }
+        /* Image overlay gradient */
+        .card-image-wrap::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 60%;
+            background: linear-gradient(to top, rgba(10,10,15,1) 0%, transparent 100%);
+        }
 
-        .card-body { padding: 2rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-body { padding: 2rem; flex-grow: 1; display: flex; flex-direction: column; position: relative; }
         
         .post-tag {
-            font-size: 0.7rem; font-weight: 800; color: var(--cyan); text-transform: uppercase;
-            letter-spacing: 1px; margin-bottom: 1rem; display: inline-block;
-            border: 1px solid rgba(0, 242, 255, 0.3); padding: 4px 12px; border-radius: 4px; width: fit-content;
-            background: rgba(0, 242, 255, 0.05);
+            font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 1.5px; margin-bottom: 0.8rem; display: inline-block;
+            padding: 5px 14px; border-radius: 4px; width: fit-content;
+            background: rgba(0, 242, 255, 0.08); color: var(--cyan);
+            border: 1px solid rgba(0, 242, 255, 0.15);
+            transition: var(--transition-smooth);
         }
-        
-        .post-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.3; }
+        .card-wrapper:hover .post-tag {
+            background: rgba(0, 242, 255, 0.15); border-color: rgba(0, 242, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0,242,255,0.1);
+        }
+
+        .post-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem; line-height: 1.3; }
         .post-title a { text-decoration: none; color: #fff; transition: color 0.3s; }
-        .post-title a:hover { color: var(--cyan); }
+        .card-wrapper:hover .post-title a { color: var(--cyan); }
         
-        .post-snippet { font-size: 0.9rem; color: var(--text-sub); margin-bottom: 1.5rem; line-height: 1.6; }
+        .post-snippet { 
+            font-size: 0.9rem; color: var(--text-sub); margin-bottom: 1.5rem; 
+            line-height: 1.7; font-weight: 300;
+        }
         
         .read-more {
             margin-top: auto; text-decoration: none; color: #fff; font-weight: 600;
-            display: inline-flex; align-items: center; gap: 8px; transition: gap 0.3s;
+            display: inline-flex; align-items: center; gap: 8px; 
+            transition: var(--transition-bounce);
+            font-size: 0.85rem; letter-spacing: 0.5px;
         }
-        .read-more:hover { gap: 12px; color: var(--primary); }
+        .read-more .arrow { display: inline-block; transition: transform 0.3s; }
+        .read-more:hover { gap: 14px; color: var(--primary); }
+        .read-more:hover .arrow { transform: translateX(4px); }
 
-        /* Footer */
-        .premium-footer { text-align: center; padding: 3rem; color: #555; font-size: 0.8rem; position: relative; z-index: 1; border-top: 1px solid var(--glass-border); }
+        /* Card 3D Tilt soft glow */
+        .card-glow {
+            position: absolute; width: 100%; height: 100%; top: 0; left: 0;
+            border-radius: var(--card-radius); pointer-events: none; z-index: 2;
+            opacity: 0; transition: opacity 0.3s;
+            background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), 
+                rgba(0,242,255,0.1) 0%, transparent 60%);
+        }
+        .card-wrapper:hover .card-glow { opacity: 1; }
 
-        /* Animations */
+        /* --- 8. STATS / FEATURES SECTION --- */
+        .stats-bar {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+            max-width: 900px; margin: 0 auto 5rem; padding: 3rem;
+            background: rgba(255,255,255,0.02); border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+        .stat-item { text-align: center; }
+        .stat-number { 
+            font-size: 2.5rem; font-weight: 900; 
+            background: linear-gradient(135deg, var(--cyan), var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .stat-label { font-size: 0.8rem; color: var(--text-sub); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- 9. FOOTER --- */
+        .premium-footer {
+            text-align: center; padding: 4rem 2rem; 
+            color: #444; font-size: 0.8rem; 
+            position: relative; z-index: 1; 
+            border-top: 1px solid var(--glass-border);
+        }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; }
+        .footer-links a { color: var(--text-sub); text-decoration: none; font-size: 0.8rem; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--cyan); }
+
+        /* --- 10. ANIMATIONS --- */
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-        
-        /* Responsive */
+        @keyframes scaleIn { to { opacity: 1; transform: scale(1); } }
+
+        .fade-in { opacity: 0; animation: fadeIn 1s ease forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* --- 11. RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .stats-bar { grid-template-columns: repeat(3, 1fr); padding: 2rem; gap: 1rem; }
+            .nav-links { display: none; }
+        }
+
         @media (max-width: 768px) {
-            .hero-section { padding: 8rem 1.5rem 4rem; }
-            .post-grid { grid-template-columns: 1fr; }
-            body { cursor: auto; } /* Restore cursor on mobile */
-            .spotlight { display: none; }
+            .hero-section { min-height: 80vh; padding: 8rem 1.5rem 4rem; }
+            .post-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .hero-actions { flex-direction: column; align-items: center; }
+            .scroll-indicator { display: none; }
+            .cursor-dot, .cursor-ring { display: none; }
+            .stats-bar { grid-template-columns: 1fr; padding: 1.5rem; }
+            .card-wrapper { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
     <!-- Animated Aurora Background -->
-    <div class="aurora-bg">
+    <div class="cinematic-bg">
         <div class="nebula nebula-1"></div>
         <div class="nebula nebula-2"></div>
         <div class="nebula nebula-3"></div>
+        <div class="nebula nebula-4"></div>
     </div>
+
+    <!-- Overlay Layers -->
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
+    <div class="grain"></div>
     
     <!-- Mouse Spotlight -->
     <div class="spotlight" id="spotlight"></div>
     
-    <!-- Floating Particles -->
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- Floating Particles Canvas -->
     <canvas id="particle-canvas"></canvas>
 
     <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
 
     <!-- Header -->
-    <header class="premium-header">
+    <header class="premium-header" id="header">
         <div class="header-container">
-            <a href="/" class="brand-logo">Celebrity Top 1</a>
+            <a href="/" class="brand-logo">✦ Celebrity Top 1</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Stories</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Insights</a></li>
+                    <li><a href="#" class="nav-cta">Subscribe</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <!-- Hero -->
-    <section class="hero-section">
-        <h1 class="hero-title">Cinematic Stories.<br><span style="color:var(--cyan)">Beyond Reality.</span></h1>
-        <p class="hero-subtitle">Experience the future of digital storytelling with immersive depth and vibrant aesthetics.</p>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+        <!-- Depth layers for parallax -->
+        <div class="hero-bg-layer" id="bgLayer1"></div>
+        <div class="hero-bg-layer-2" id="bgLayer2"></div>
+
+        <!-- Floating glows -->
+        <div class="float-element float-1"></div>
+        <div class="float-element float-2"></div>
+        <div class="float-element float-3"></div>
+
+        <div class="hero-content">
+            <div class="hero-badge">✦ Est. 2026 — Cinematic Division</div>
+            <h1 class="hero-title" id="heroTitle">
+                Stories That<br>
+                <span class="accent-word">Define Reality</span>
+            </h1>
+            <p class="hero-subtitle">
+                Experience the future of digital storytelling with immersive depth, 
+                cinematic visuals, and aesthetics that transcend the ordinary<span class="typing-cursor"></span>
+            </p>
+            <div class="hero-actions">
+                <a href="#" class="btn-primary">Explore Stories →</a>
+                <a href="#" class="btn-secondary">✦ Watch Trailer</a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+        </div>
     </section>
 
     <!-- Main Content -->
     <main class="content-wrapper">
+        
+        <!-- Stats Bar -->
+        <div class="stats-bar" id="statsBar">
+            <div class="stat-item">
+                <div class="stat-number" data-target="500">0+</div>
+                <div class="stat-label">Articles Published</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="2.4">0M</div>
+                <div class="stat-label">Monthly Readers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="98">0%</div>
+                <div class="stat-label">Satisfaction Rate</div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <div class="section-label">✦ Featured Stories</div>
+            <h2 class="section-title">Curated for the Extraordinary</h2>
+        </div>
+
         <div class="post-grid">
             
             <!-- Card 1 -->
-            <div class="card-wrapper">
+            <div class="card-wrapper" data-tilt>
                 <article class="post-card">
+                    <div class="card-glow"></div>
                     <div class="card-image-wrap">
-                        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80" alt="Post">
+                        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80" alt="Post" loading="lazy">
                     </div>
                     <div class="card-body">
                         <span class="post-tag">Breaking News</span>
                         <h2 class="post-title"><a href="#">Sydney Sweeney & Zendaya</a></h2>
-                        <p class="post-snippet">Exploring the cinematic journey of today's top celebrities and their impact on modern fashion...</p>
-                        <a href="#" class="read-more">Read Article →</a>
+                        <p class="post-snippet">Exploring the cinematic journey of today's top celebrities and their impact on modern fashion and culture...</p>
+                        <a href="#" class="read-more">Read Article <span class="arrow">→</span></a>
                     </div>
                 </article>
             </div>
 
             <!-- Card 2 -->
-            <div class="card-wrapper">
+            <div class="card-wrapper" data-tilt>
                 <article class="post-card">
+                    <div class="card-glow"></div>
                     <div class="card-image-wrap">
-                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80" alt="Post">
+                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80" alt="Post" loading="lazy">
                     </div>
                     <div class="card-body">
                         <span class="post-tag">Lifestyle</span>
                         <h2 class="post-title"><a href="#">Red Carpet 2026</a></h2>
-                        <p class="post-snippet">An exclusive look at the preparations and styles that defined this year's most anticipated event...</p>
-                        <a href="#" class="read-more">Read Article →</a>
+                        <p class="post-snippet">An exclusive look at the preparations and styles that defined this year's most anticipated event and its iconic moments...</p>
+                        <a href="#" class="read-more">Read Article <span class="arrow">→</span></a>
                     </div>
                 </article>
             </div>
 
-             <!-- Card 3 -->
-             <div class="card-wrapper">
+            <!-- Card 3 -->
+            <div class="card-wrapper" data-tilt>
                 <article class="post-card">
+                    <div class="card-glow"></div>
                     <div class="card-image-wrap">
-                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="Post">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="Post" loading="lazy">
                     </div>
                     <div class="card-body">
                         <span class="post-tag">Tech & Media</span>
                         <h2 class="post-title"><a href="#">Digital Luxury</a></h2>
-                        <p class="post-snippet">How social media algorithms are reshaping the definition of celebrity in the digital age...</p>
-                        <a href="#" class="read-more">Read Article →</a>
+                        <p class="post-snippet">How social media algorithms are reshaping the definition of celebrity in the digital age — a deep dive into influence...</p>
+                        <a href="#" class="read-more">Read Article <span class="arrow">→</span></a>
                     </div>
                 </article>
             </div>
@@ -250,94 +637,332 @@
         </div>
     </main>
 
+    <!-- Footer -->
     <footer class="premium-footer">
-        <p>&copy; 2026 Celebrity Top 1. Designed with Cinematic Precision.</p>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Contact</a>
+        </div>
+        <p>&copy; 2026 Celebrity Top 1. Crafted with Cinematic Precision.</p>
     </footer>
 
     <script>
-        // --- 1. MOUSE SPOTLIGHT EFFECT ---
+        'use strict';
+
+        // ============================================================
+        // 1. MOUSE SPOTLIGHT EFFECT
+        // ============================================================
         const spotlight = document.getElementById('spotlight');
         document.addEventListener('mousemove', (e) => {
             spotlight.style.setProperty('--x', e.clientX + 'px');
             spotlight.style.setProperty('--y', e.clientY + 'px');
         });
 
-        // --- 2. PARTICLE SYSTEM (Star Dust) ---
+        // ============================================================
+        // 2. CUSTOM CURSOR
+        // ============================================================
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorRing = document.getElementById('cursorRing');
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+
+        function animateCursor() {
+            ringX += (mouseX - ringX) * 0.12;
+            ringY += (mouseY - ringY) * 0.12;
+            cursorRing.style.left = ringX + 'px';
+            cursorRing.style.top = ringY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Hover effect on interactive elements
+        document.querySelectorAll('a, .btn-primary, .btn-secondary, .card-wrapper').forEach(el => {
+            el.addEventListener('mouseenter', () => cursorRing.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovered'));
+        });
+
+        // ============================================================
+        // 3. ADVANCED PARTICLE SYSTEM (Star Dust with connections)
+        // ============================================================
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
-        let particlesArray;
+        let particles = [];
+        let mouseParticle = { x: -1000, y: -1000 };
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
 
         class Particle {
             constructor() {
+                this.reset();
+            }
+            reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.5 + 0.5;
-                this.speedX = Math.random() * 0.3 - 0.15;
-                this.speedY = Math.random() * 0.3 - 0.15;
-                this.color = `rgba(255, 255, 255, ${Math.random() * 0.5})`;
+                this.size = Math.random() * 2 + 0.3;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = (Math.random() - 0.5) * 0.4;
+                this.opacity = Math.random() * 0.6 + 0.2;
+                // Color variation: white, cyan tint, purple tint
+                const colors = [
+                    `rgba(255, 255, 255, ${this.opacity})`,
+                    `rgba(0, 242, 255, ${this.opacity * 0.8})`,
+                    `rgba(112, 0, 255, ${this.opacity * 0.6})`,
+                ];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.life = Math.random() * 200 + 100;
+                this.maxLife = this.life;
             }
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+
+                // Wrap around
+                if (this.x < -10) this.x = canvas.width + 10;
+                if (this.x > canvas.width + 10) this.x = -10;
+                if (this.y < -10) this.y = canvas.height + 10;
+                if (this.y > canvas.height + 10) this.y = -10;
+
+                // Mouse repulsion
+                const dx = this.x - mouseParticle.x;
+                const dy = this.y - mouseParticle.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 120) {
+                    const force = (120 - dist) / 120;
+                    this.x += dx * force * 0.03;
+                    this.y += dy * force * 0.03;
+                }
+
+                this.life--;
+                if (this.life <= 0) this.reset();
             }
             draw() {
+                const lifeRatio = this.life / this.maxLife;
+                const alpha = Math.min(this.opacity, lifeRatio * 2);
+                ctx.globalAlpha = alpha;
                 ctx.fillStyle = this.color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
+                ctx.globalAlpha = 1;
             }
         }
 
         function initParticles() {
-            particlesArray = [];
-            for (let i = 0; i < 80; i++) particlesArray.push(new Particle());
+            particles = [];
+            const count = Math.min(120, Math.floor(window.innerWidth * 0.08));
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+        }
+
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        const opacity = (1 - dist / 150) * 0.12;
+                        ctx.strokeStyle = `rgba(0, 242, 255, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
         }
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
+            for (const p of particles) {
+                p.update();
+                p.draw();
             }
+            drawConnections();
             requestAnimationFrame(animateParticles);
         }
 
+        document.addEventListener('mousemove', (e) => {
+            mouseParticle.x = e.clientX;
+            mouseParticle.y = e.clientY;
+        });
+
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            resizeCanvas();
             initParticles();
         });
 
         initParticles();
         animateParticles();
 
-        // --- 3. SCROLL PROGRESS & TILT EFFECT ---
+        // ============================================================
+        // 4. SCROLL PROGRESS BAR
+        // ============================================================
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
-            document.getElementById("progressBar").style.width = scrolled + "%";
+            document.getElementById('progressBar').style.width = scrolled + '%';
         });
 
-        // Magnetic Tilt for Cards
-        document.querySelectorAll('.card-wrapper').forEach(card => {
+        // ============================================================
+        // 5. HEADER SCROLL EFFECT
+        // ============================================================
+        const header = document.getElementById('header');
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            lastScroll = currentScroll;
+        });
+
+        // ============================================================
+        // 6. CARD 3D TILT EFFECT (Magnetic + Glow)
+        // ============================================================
+        document.querySelectorAll('.card-wrapper[data-tilt]').forEach(card => {
+            const glow = card.querySelector('.card-glow');
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                const xRot = ((y - rect.height / 2) / rect.height) * -10;
-                const yRot = ((x - rect.width / 2) / rect.width) * 10;
-                card.style.transform = `perspective(1000px) rotateX(${xRot}deg) rotateY(${yRot}deg) scale(1.02)`;
+                const xCenter = rect.width / 2;
+                const yCenter = rect.height / 2;
+                const xRot = ((y - yCenter) / rect.height) * -12;
+                const yRot = ((x - xCenter) / rect.width) * 12;
+                card.style.transform = `perspective(1200px) rotateX(${xRot}deg) rotateY(${yRot}deg) scale(1.03)`;
+                // Glow follows mouse
+                if (glow) {
+                    glow.style.setProperty('--gx', (x / rect.width) * 100 + '%');
+                    glow.style.setProperty('--gy', (y / rect.height) * 100 + '%');
+                }
             });
             card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                card.style.transform = 'perspective(1200px) rotateX(0) rotateY(0) scale(1)';
             });
         });
+
+        // ============================================================
+        // 7. SCROLL REVEAL (Intersection Observer)
+        // ============================================================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card-wrapper').forEach(card => observer.observe(card));
+
+        // Stats counter animation
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsBar = document.getElementById('statsBar');
+        if (statsBar) statsObserver.observe(statsBar);
+
+        function animateStats() {
+            document.querySelectorAll('.stat-number').forEach(stat => {
+                const target = parseFloat(stat.dataset.target);
+                const suffix = stat.textContent.replace(/[\d.]/g, '');
+                const duration = 2000;
+                const startTime = performance.now();
+
+                function update(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    // Ease out cubic
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = target * eased;
+                    if (target % 1 === 0) {
+                        stat.textContent = Math.floor(current) + suffix;
+                    } else {
+                        stat.textContent = current.toFixed(1) + suffix;
+                    }
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    } else {
+                        stat.textContent = (target % 1 === 0 ? Math.floor(target) : target.toFixed(1)) + suffix;
+                    }
+                }
+                requestAnimationFrame(update);
+            });
+        }
+
+        // ============================================================
+        // 8. HERO PARALLAX ON MOUSE MOVE
+        // ============================================================
+        const hero = document.getElementById('hero');
+        const bgLayer1 = document.getElementById('bgLayer1');
+        const bgLayer2 = document.getElementById('bgLayer2');
+
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 2;
+            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+            if (bgLayer1) {
+                bgLayer1.style.transform = `translate(${x * -20}px, ${y * -20}px)`;
+            }
+            if (bgLayer2) {
+                bgLayer2.style.transform = `translate(${x * -35}px, ${y * -35}px)`;
+            }
+        });
+
+        // ============================================================
+        // 9. SCROLL-BASED PARALLAX FOR HERO
+        // ============================================================
+        window.addEventListener('scroll', () => {
+            const scrollY = window.pageYOffset;
+            const heroContent = document.querySelector('.hero-content');
+            if (heroContent && scrollY < window.innerHeight) {
+                const translateY = scrollY * 0.4;
+                const opacity = 1 - (scrollY / window.innerHeight) * 0.8;
+                heroContent.style.transform = `translateY(${translateY}px)`;
+                heroContent.style.opacity = opacity;
+            }
+        });
+
+        // ============================================================
+        // 10. INITIAL LOAD ANIMATION
+        // ============================================================
+        // Force card visibility if IntersectionObserver didn't fire
+        setTimeout(() => {
+            document.querySelectorAll('.card-wrapper').forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    card.classList.add('visible');
+                }
+            });
+        }, 500);
+
+        console.log('✦ Celebrity Top 1 — Cinematic Experience Loaded');
     </script>
 </body>
 </html>
