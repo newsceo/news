@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Celebrity Top 1 - Seamless Ping-Pong Panorama</title>
+    <title>Celebrity Top 1 - Constant Speed Panorama</title>
     
     <!-- Font Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,7 @@
             min-height: 100vh;
         }
 
-        /* --- SEAMLESS PING-PONG BACKGROUND --- */
+        /* --- CONSTANT SPEED PING-PONG BACKGROUND --- */
         .background-art {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
             overflow: hidden;
@@ -61,7 +61,7 @@
             transform: scaleX(-1);
         }
 
-        /* Animasi Bolak-Balik (Ping-Pong) */
+        /* Animasi Bolak-Balik dengan Kecepatan KONSTAN (Linear) */
         @keyframes pingPongSlide {
             0% { transform: translateX(0); }
             50% { transform: translateX(-50%); } /* Geser ke kiri sejauh 1 slide */
@@ -69,7 +69,8 @@
         }
 
         .panorama-wrapper {
-            animation: pingPongSlide 120s ease-in-out infinite; /* 120s = 60s kiri + 60s kanan */
+            /* Linear = Tidak ada percepatan/perlambatan, murni konstan */
+            animation: pingPongSlide 100s linear infinite; 
         }
 
         /* Overlay Vignette */
@@ -195,7 +196,7 @@
 </head>
 <body>
 
-    <!-- Seamless Ping-Pong Background -->
+    <!-- Constant Speed Ping-Pong Background -->
     <div class="background-art">
         <div class="panorama-wrapper">
             <div class="panorama-slide"></div> <!-- NORMAL -->
