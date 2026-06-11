@@ -33,22 +33,28 @@
             min-height: 100vh;
         }
 
-        /* --- BACKGROUND ART (CSS ONLY) --- */
+        /* --- ANIMATED BACKGROUND CONTAINER --- */
         .background-art {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            position: fixed; top: -10%; left: -10%; width: 120%; height: 120%; z-index: -2;
             background: linear-gradient(to bottom, #2b1055, #7597de);
             overflow: hidden;
+            will-change: transform; /* Optimasi performa GPU */
+            transition: transform 0.1s linear; /* Smooth scroll sync */
         }
+        
         .sun {
             position: absolute; bottom: 30%; left: 50%; transform: translateX(-50%);
             width: 150px; height: 150px; background: linear-gradient(to top, #ff6b35, #ffd700);
             border-radius: 50%; box-shadow: 0 0 60px #ff6b35, 0 0 100px #ff4500; opacity: 0.9;
+            will-change: transform;
         }
+        
         .mountain {
             position: absolute; bottom: 0; width: 100%; height: 40%;
             background: linear-gradient(to top, #0f0c29, #302b63);
             clip-path: polygon(0% 100%, 0% 20%, 20% 60%, 40% 30%, 60% 70%, 80% 40%, 100% 80%, 100% 100%);
             z-index: -1; opacity: 0.8;
+            will-change: transform;
         }
         .mountain:nth-child(2) {
             height: 50%; background: linear-gradient(to top, #000000, #24243e);
@@ -88,19 +94,18 @@
         }
         .hero-subtitle { font-size: 1.2rem; color: var(--text-sub); max-width: 600px; margin: 0 auto; }
 
-        /* --- NEW GLASSMORPHISM CARD DESIGN --- */
+        /* --- GLASSMORPHISM CARD DESIGN --- */
         .content-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 2rem 8rem; position: relative; z-index: 1; }
         .post-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 3rem; perspective: 1000px; }
 
         .card-wrapper {
-            position: relative; width: 100%; height: 520px; /* Fixed height for consistency */
+            position: relative; width: 100%; height: 520px;
             border-radius: 24px; overflow: hidden; transition: var(--transition-smooth);
             transform-style: preserve-3d; opacity: 0; transform: translateY(30px);
-            cursor: pointer; /* KUNCI: Menunjukkan bahwa seluruh area bisa diklik */
+            cursor: pointer;
         }
         .card-wrapper.visible { opacity: 1; transform: translateY(0); }
 
-        /* RGB Border Animation */
         .card-wrapper::before {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: conic-gradient(#fd004c, #fe9000, #fff020, #3edf4b, #3363ff, #b102b7, #fd004c);
@@ -109,7 +114,6 @@
         .card-wrapper:hover::before { opacity: 1; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* True Glassmorphism Card Body */
         .post-card {
             position: relative; width: 100%; height: 100%; 
             background: var(--glass-bg);
@@ -120,7 +124,6 @@
             box-shadow: inset 0 0 20px rgba(255,255,255,0.02), 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        /* Expanded Thumbnail Area (65% Height) */
         .card-image-wrap { 
             height: 65%; width: 100%; overflow: hidden; position: relative; 
             mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
@@ -132,7 +135,6 @@
         }
         .card-wrapper:hover .card-image-wrap img { transform: scale(1.1); filter: brightness(1.1) contrast(1.2); }
 
-        /* Floating Tag Badge */
         .floating-tag {
             position: absolute; top: 20px; left: 20px; z-index: 2;
             font-size: 0.65rem; font-weight: 800; color: #fff; text-transform: uppercase;
@@ -149,22 +151,19 @@
         
         .post-title { 
             font-size: 1.5rem; font-weight: 700; margin-bottom: 0.8rem; line-height: 1.3; 
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5); color: #fff;
         }
-        /* Judul sekarang hanya teks biasa, bukan link lagi */
-        .post-title { color: #fff; }
         
         .post-snippet { 
             font-size: 0.85rem; color: var(--text-sub); margin-bottom: 1.5rem; line-height: 1.6; 
             display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
         }
         
-        /* Read More sekarang hanya indikator visual */
         .read-more {
             margin-top: auto; text-decoration: none; color: #fff; font-weight: 600; font-size: 0.9rem;
             display: inline-flex; align-items: center; gap: 8px; transition: gap 0.3s;
             padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.1);
-            pointer-events: none; /* Mencegah konflik klik */
+            pointer-events: none;
         }
         .card-wrapper:hover .read-more { gap: 12px; color: var(--primary); }
 
@@ -179,8 +178,8 @@
 </head>
 <body>
 
-    <!-- Background Art -->
-    <div class="background-art">
+    <!-- Animated Parallax Background -->
+    <div class="background-art" id="parallax-bg">
         <div class="sun"></div>
         <div class="mountain"></div>
         <div class="mountain"></div>
@@ -205,9 +204,7 @@
 
     <!-- Main Content (Dynamic) -->
     <main class="content-wrapper">
-        <div class="post-grid" id="dynamic-posts">
-            <!-- Kartu akan dimuat di sini oleh JavaScript -->
-        </div>
+        <div class="post-grid" id="dynamic-posts"></div>
     </main>
 
     <footer class="premium-footer">
@@ -215,7 +212,31 @@
     </footer>
 
     <script>
-        // --- 1. DYNAMIC DATA LOADING ---
+        // --- 1. PARALLAX SCROLL BACKGROUND ANIMATION ---
+        const bgArt = document.getElementById('parallax-bg');
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    // Efek Zoom Out: Scale berkurang saat scroll ke bawah
+                    // Mulai dari scale 1.2, turun perlahan hingga 0.8 di posisi tertentu
+                    const zoomFactor = Math.max(0.8, 1.2 - (scrolled * 0.0003));
+                    
+                    // Efek Vertical Pan: Background bergerak lebih lambat (0.4x speed)
+                    const panY = scrolled * 0.4;
+                    
+                    bgArt.style.transform = `translateY(${panY}px) scale(${zoomFactor})`;
+                    
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // --- 2. DYNAMIC DATA LOADING ---
         async function loadPosts() {
             try {
                 const response = await fetch('data.json');
@@ -226,7 +247,6 @@
                 container.innerHTML = ''; 
 
                 posts.forEach((post, index) => {
-                    // PERUBAHAN UTAMA DI SINI: Menggunakan onclick pada wrapper
                     const cardHTML = `
                         <div class="card-wrapper" style="animation-delay: ${index * 0.1}s" onclick="window.location.href='${post.link}'">
                             <article class="post-card">
@@ -253,7 +273,7 @@
             }
         }
 
-        // --- 2. ANIMATION INITIALIZERS ---
+        // --- 3. ANIMATION INITIALIZERS ---
         function initCardAnimations() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -278,7 +298,7 @@
             });
         }
 
-        // --- 3. PARTICLE SYSTEM ---
+        // --- 4. PARTICLE SYSTEM ---
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particlesArray;
@@ -329,7 +349,7 @@
             initParticles();
         });
 
-        // --- 4. SCROLL PROGRESS ---
+        // --- 5. SCROLL PROGRESS ---
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
