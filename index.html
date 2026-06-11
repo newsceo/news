@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Celebrity Top 1 - Infinite Panorama Experience</title>
+    <title>Celebrity Top 1 - Seamless Cinematic Experience</title>
     
     <!-- Font Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,44 +33,46 @@
             min-height: 100vh;
         }
 
-        /* --- INFINITE SLIDING BACKGROUND --- */
+        /* --- SEAMLESS INFINITE BACKGROUND (FIXED) --- */
         .background-art {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
             overflow: hidden;
-            background: linear-gradient(to bottom, #1a0b2e 0%, #2b1055 50%, #7597de 100%);
+            background: linear-gradient(to bottom, #1a0b2e 0%, #2b1055 100%);
         }
 
-        /* Container untuk gambar yang digeser */
         .panorama-wrapper {
             position: absolute; top: 0; left: 0; height: 100%;
-            width: 200%; /* Lebar 2x viewport untuk seamless loop */
+            width: 300%; /* Lebar 3x viewport untuk keamanan maksimal */
             display: flex;
             will-change: transform;
         }
 
         .panorama-slide {
-            width: 50%; /* Masing-masing slide = 100% viewport */
+            width: 33.3333%; /* Masing-masing tepat 1/3 dari wrapper */
             height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop');
+            /* Gambar Pegunungan Alpen High-Res dengan Gradasi Halus */
+            background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
-            filter: brightness(0.7) contrast(1.2) saturate(1.3);
+            /* Filter agar menyatu dengan tema gelap & premium */
+            filter: brightness(0.6) contrast(1.1) saturate(1.2);
         }
 
-        /* Animasi geser tanpa henti */
+        /* Animasi Geser Kiri Tanpa Henti */
         @keyframes slideLeft {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Geser sejauh 1 slide (50% dari wrapper) */
+            100% { transform: translateX(-33.3333%); } /* Geser tepat 1 slide */
         }
 
         .panorama-wrapper {
-            animation: slideLeft 60s linear infinite; /* 60 detik per putaran penuh */
+            animation: slideLeft 80s linear infinite; /* Lebih lambat (80s) agar lebih elegan */
         }
 
-        /* Overlay gradient agar teks tetap terbaca */
+        /* Overlay Vignette agar teks tetap terbaca di area terang/gelap */
         .background-overlay {
             position: absolute; inset: 0; z-index: -1;
-            background: radial-gradient(circle at center, transparent 0%, rgba(15, 12, 41, 0.8) 100%);
+            background: radial-gradient(circle at center, transparent 20%, rgba(15, 12, 41, 0.85) 100%);
+            pointer-events: none;
         }
 
         #particle-canvas {
@@ -89,7 +91,7 @@
 
         .premium-header {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: rgba(15, 12, 41, 0.7); backdrop-filter: blur(15px);
+            background: rgba(15, 12, 41, 0.6); backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--glass-border); padding: 1.2rem 0;
         }
         .header-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
@@ -189,11 +191,13 @@
 </head>
 <body>
 
-    <!-- Infinite Sliding Background -->
+    <!-- Seamless Infinite Background -->
     <div class="background-art">
         <div class="panorama-wrapper">
+            <!-- 3 Salinan Identik untuk Looping Sempurna -->
             <div class="panorama-slide"></div>
-            <div class="panorama-slide"></div> <!-- Duplikat untuk seamless loop -->
+            <div class="panorama-slide"></div>
+            <div class="panorama-slide"></div>
         </div>
         <div class="background-overlay"></div>
     </div>
