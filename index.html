@@ -3,12 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Celebrity Top 1 - Constant Speed Panorama</title>
     
+    <!-- ✅ SEO UTAMA: Ganti Title & Description -->
+    <title>NewsCEO - US Breaking News, Politics & Entertainment</title>
+    <meta name="description" content="NewsCEO delivers the latest US breaking news, politics, celebrity gossip, and entertainment updates. Your trusted source for American headlines and trending stories.">
+    <meta name="keywords" content="US news, breaking news, politics, celebrity news, entertainment, America headlines, NewsCEO">
+    <meta name="author" content="NewsCEO">
+    <meta name="robots" content="index, follow">
+    
+    <!-- ✅ OPEN GRAPH (Untuk Share di Sosmed) -->
+    <meta property="og:title" content="NewsCEO - US Breaking News & Entertainment">
+    <meta property="og:description" content="Latest US breaking news, politics, and celebrity updates.">
+    <meta property="og:url" content="https://newsceo.github.io/news/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://newsceo.github.io/news/og-image.jpg"> <!-- Buat gambar OG 1200x630px -->
+    
+    <!-- ✅ TWITTER CARD -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NewsCEO - US News & Entertainment">
+    <meta name="twitter:description" content="Breaking news, politics, and celebrity updates from NewsCEO.">
+    
+    <!-- ✅ FAVICON (PENTING!) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
     <!-- Font Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <!-- ✅ SCHEMA MARKUP (Wajib untuk Situs Berita) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsMediaOrganization",
+      "name": "NewsCEO",
+      "url": "https://newsceo.github.io/news/",
+      "logo": "https://newsceo.github.io/news/favicon.png",
+      "sameAs": [
+        "https://twitter.com/newsceo",
+        "https://facebook.com/newsceo"
+      ]
+    }
+    </script>
 
     <style>
         /* --- CORE VARIABLES & RESET --- */
@@ -42,13 +79,13 @@
 
         .panorama-wrapper {
             position: absolute; top: 0; left: 0; height: 100%;
-            width: 200%; /* Lebar 2x viewport */
+            width: 200%;
             display: flex;
             will-change: transform;
         }
 
         .panorama-slide {
-            width: 50%; /* Masing-masing 100% viewport */
+            width: 50%;
             height: 100%;
             background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
@@ -56,24 +93,16 @@
             filter: brightness(0.65) contrast(1.15) saturate(1.2);
         }
 
-        /* Slide kedua dicerminkan agar sambungan mulus */
-        .panorama-slide:nth-child(2) {
-            transform: scaleX(-1);
-        }
+        .panorama-slide:nth-child(2) { transform: scaleX(-1); }
 
-        /* Animasi Bolak-Balik dengan Kecepatan KONSTAN (Linear) */
         @keyframes pingPongSlide {
             0% { transform: translateX(0); }
-            50% { transform: translateX(-50%); } /* Geser ke kiri sejauh 1 slide */
-            100% { transform: translateX(0); }   /* Kembali ke kanan */
+            50% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
         }
 
-        .panorama-wrapper {
-            /* Linear = Tidak ada percepatan/perlambatan, murni konstan */
-            animation: pingPongSlide 100s linear infinite; 
-        }
+        .panorama-wrapper { animation: pingPongSlide 100s linear infinite; }
 
-        /* Overlay Vignette */
         .background-overlay {
             position: absolute; inset: 0; z-index: -1;
             background: radial-gradient(circle at center, transparent 15%, rgba(15, 12, 41, 0.9) 100%);
@@ -100,9 +129,12 @@
             border-bottom: 1px solid var(--glass-border); padding: 1.2rem 0;
         }
         .header-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        
+        /* ✅ BRAND LOGO DIUBAH */
         .brand-logo {
             font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
             background: linear-gradient(90deg, #fff, #aaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-decoration: none;
         }
 
         .hero-section { padding: 12rem 2rem 6rem; text-align: center; position: relative; z-index: 1; }
@@ -112,7 +144,6 @@
         }
         .hero-subtitle { font-size: 1.2rem; color: var(--text-sub); max-width: 600px; margin: 0 auto; }
 
-        /* --- GLASSMORPHISM CARD DESIGN --- */
         .content-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 2rem 8rem; position: relative; z-index: 1; }
         .post-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 3rem; perspective: 1000px; }
 
@@ -185,6 +216,7 @@
         }
         .card-wrapper:hover .read-more { gap: 12px; color: var(--primary); }
 
+        /* ✅ FOOTER DIUBAH */
         .premium-footer { text-align: center; padding: 3rem; color: #666; font-size: 0.8rem; position: relative; z-index: 1; }
 
         @media (max-width: 768px) {
@@ -196,40 +228,37 @@
 </head>
 <body>
 
-    <!-- Constant Speed Ping-Pong Background -->
     <div class="background-art">
         <div class="panorama-wrapper">
-            <div class="panorama-slide"></div> <!-- NORMAL -->
-            <div class="panorama-slide"></div> <!-- CERMIN -->
+            <div class="panorama-slide"></div>
+            <div class="panorama-slide"></div>
         </div>
         <div class="background-overlay"></div>
     </div>
     
     <canvas id="particle-canvas"></canvas>
-
-    <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
 
-    <!-- Header -->
     <header class="premium-header">
         <div class="header-container">
-            <a href="/" class="brand-logo">Celebrity Top 1</a>
+            <!-- ✅ LOGO TEXT DIUBAH -->
+            <a href="/" class="brand-logo">NewsCEO</a>
         </div>
     </header>
 
-    <!-- Hero -->
     <section class="hero-section">
-        <h1 class="hero-title">Cinematic Stories.<br><span style="color:#fe9000">Ultra Premium.</span></h1>
-        <p class="hero-subtitle">Experience the future of digital storytelling with immersive depth and vibrant aesthetics.</p>
+        <!-- ✅ HERO TITLE DIUBAH AGAR RELEVAN DENGAN NEWS -->
+        <h1 class="hero-title">Breaking News.<br><span style="color:#fe9000">Real-Time.</span></h1>
+        <p class="hero-subtitle">Your premium source for US politics, celebrity updates, and entertainment headlines.</p>
     </section>
 
-    <!-- Main Content (Dynamic) -->
     <main class="content-wrapper">
         <div class="post-grid" id="dynamic-posts"></div>
     </main>
 
+    <!-- ✅ COPYRIGHT DIUBAH -->
     <footer class="premium-footer">
-        <p>&copy; 2026 Celebrity Top 1. Designed with Cinematic Precision.</p>
+        <p>&copy; 2026 NewsCEO. All Rights Reserved. | US Breaking News & Entertainment</p>
     </footer>
 
     <script>
